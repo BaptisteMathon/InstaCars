@@ -1,0 +1,182 @@
+.main-profil {
+    max-width: 900px;
+    margin: 10px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    font-family: Arial, sans-serif;
+}
+
+.main-div1 {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.main-div1 img {
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-div1 h2 {
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.bio {
+    color: #555;
+    line-height: 1.5;
+    max-width: 500px;
+}
+
+.main-div2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+}
+
+.edit-profil {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-right: 10px
+}
+
+.edit-profil:hover {
+    background-color: #e0e0e0;
+}
+
+.div-follow {
+    display: flex;
+    gap: 30px;
+    text-align: center;
+}
+
+.div-follow div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.div-follow p:first-child {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0;
+}
+
+.div-follow p:last-child {
+    color: #777;
+    margin: 0;
+    font-size: 14px;
+}
+
+.section-publication {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-publication {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.div-publication div {
+    flex: 0 0 calc(33% - 20px);
+    max-width: calc(33% - 20px);
+    margin-bottom: 30px;
+}
+
+.div-publication img {
+    width: 20rem;
+    height: 20rem;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.div-publication p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.follow, .unfollow{
+    margin-top: 10px
+}
+
+.follow span{
+    color: white;
+    background-color: red;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 4px 15px;
+    transition: 0.7s;
+}
+
+.unfollow span{
+    color: white;
+    background-color: gray;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 4px 15px;
+    transition: 0.7s;
+}
+
+.follow span:hover {
+    background-color: rgb(178, 16, 16);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.unfollow span:hover {
+    background-color: rgb(172, 172, 172);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.unfollow{
+    color: blue;
+}
+
+@media (max-width: 768px) {
+    .main-div1 {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .main-div2 {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .div-follow {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .div-publication > div {
+        flex: 0 0 calc(50% - 10px);
+        max-width: calc(50% - 10px);
+    }
+}
+
+
+@media (max-width: 480px) {
+    .div-publication > div {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    .div-publication {
+        gap: 15px;
+    }
+}

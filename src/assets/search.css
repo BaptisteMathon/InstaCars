@@ -1,0 +1,87 @@
+.main-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+.search-bar {
+    display: flex;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #e0e0e0;
+    border-right: none;
+    border-radius: 24px 0 0 24px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.search-bar input:focus {
+    border-color: #4285f4;
+    box-shadow: 0 0 0 1px #4285f4;
+}
+
+.search-bar button {
+    width: 50px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 24px 24px 0;
+    transition: 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #3367d6;
+}
+
+.list-users{
+    list-style: none;
+}
+
+.list-users a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    transition: 0.7s;
+    border-radius: 15px;
+}
+
+.list-users a:hover {
+    background-color: rgb(208, 208, 208);
+}
+
+.list-users a img {
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.all-users{
+    margin-left: 10%;
+}
