@@ -3,11 +3,18 @@
     import { useRouter, useRoute } from 'vue-router'
     import { useAuth } from '@/components/Auth'
     import Header from '@/components/Header.vue'
+    import { usePublicationActions } from '@/components/publicationActions'
+    import { likeActions } from '@/components/likeActions'
+
 
     const router = useRouter()
     const route = useRoute()
 
     const { isAuthentificated, logout } = useAuth()
+    const {bool_popup, bool_like, publicationDetail, seePublication} = usePublicationActions()
+    const {Likes} = likeActions(bool_like, publicationDetail);
+
+    const getUserIdFromLocalStorage = () => localStorage.getItem('userId') || '';
 
     const userData = ref({
         id: '',
@@ -26,6 +33,21 @@
         userId: string
     }
 
+    interface PublicationDetail {
+        owner: string;
+        image: string;
+        description: string;
+        tags: string[];
+        likes: string[];
+        created_at: string;
+        comments: Comment[];
+    }
+
+    interface Comment {
+        user: string;
+        text: string;
+    }
+
     const publication = ref<Publication[]>([])
     const followings = ref<string[]>([])
 
@@ -36,7 +58,6 @@
     const statut_class = ref('')
 
     async function Follow(id: string){
-        console.log(followings.value)
         if(bool_following.value){
             const myId = {id: localStorage.getItem('userId')}
             const response = await fetch(`http://localhost:3001/unfollow/${route.params.id}`, {
@@ -178,13 +199,43 @@
                 image: `http://localhost:3001/uploads/publications/${pub.image}`,
                 createdAt: pub.created_at,
                 userId: pub.owner
-            }))
+            })).sort((a: Publication, b: Publication) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
 
             console.log('publication:', publication.value)
 
         } catch(error){
             console.error('Error during onMounted fetching publication:', error)
         }
+
+        const popUp = document.getElementById('DetailPost')
+        document.addEventListener('keydown', (event) => {
+            if(event.key === 'Escape'){
+                bool_popup.value = false
+                const test1Element = document.getElementById("test1");
+                const test2Element = document.getElementById("test2");
+                if (test1Element && test2Element) {
+                    test1Element.style.filter = "blur(0)";
+                    test2Element.style.filter = "blur(0)";
+                }
+            }
+        })
+        document.addEventListener('mousedown', (event) => {
+            if (event.target) {
+                if (event.target instanceof HTMLElement) {
+                    // console.log(event.target.className)
+                    if(event.target.className === "DetailPost"){
+                        bool_popup.value = false
+                        const test1Element = document.getElementById("test1");
+                        const test2Element = document.getElementById("test2");
+                        if (test1Element && test2Element) {
+                            test1Element.style.filter = "blur(0)";
+                            test2Element.style.filter = "blur(0)";
+                        }
+                    }
+                }
+            }
+            // if()
+        })
     })
 
 
@@ -194,7 +245,7 @@
 
     <Header />
 
-    <main class="main-profil">
+    <main class="main-profil" id="test1">
         <div class="main-div1">
             <img :src="userData.profile_picture || '/public/utilisateur.png'" alt="" width="150" height="150">
             <div>
@@ -226,11 +277,40 @@
         </div>
     </main>
 
-    <section class="section-publication">
+    <section class="section-publication" id="test2">
         <div v-if="publication.length !== 0" class="div-publication">
-            <div v-for="publications in publication">
+            <div v-for="publications in publication" @click="seePublication(publications.id)" class="click">
                 <img :src="publications.image" :alt="publications.description">
                 <p>{{ publications.description }}</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="DetailPost" id="DetailPost" v-if="bool_popup">
+        <div class="DetailPostDiv">
+            <div class="userPart">
+                <img :src="userData.profile_picture || '/public/utilisateur.png'" alt="Profile picture of user" class="profil-user-detail">
+                <h3>{{ userData.username }}</h3>
+            </div>
+            <div class="main-content">
+                <img :src="publicationDetail.image" alt="" class="image-detail">
+            </div>
+            <div class="event-publications">
+                <div class="click-detail">
+                    <span class="span-detail" style="margin-right: 10px;">{{ publicationDetail.comments.length }}</span>
+                    <img src="/public/commenter.png" alt="Comment" class="icon" width="30">
+                </div>
+                <div class="click-detail" @click="Likes(publicationDetail.id, getUserIdFromLocalStorage())">
+                    <img src="/public/like2.png" alt="Like" class="icon" width="30" v-if="bool_like">
+                    <img src="/public/like.png" alt="Like" class="icon" width="30" v-if="!bool_like">
+                    <span class="span-detail" style="margin-left: 10px;">{{ publicationDetail.likes.length }}</span>
+                </div>
+            </div>  
+            <div class="description">
+                <p>{{ publicationDetail.description }}</p>
+                <div class="test">
+                    <p class="tags" v-for="tags in publicationDetail.tags">{{ tags }} </p>
+                </div>
             </div>
         </div>
     </section>
