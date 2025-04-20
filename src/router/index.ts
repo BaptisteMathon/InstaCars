@@ -5,6 +5,7 @@ import Authentification from '../views/Authentification.vue'
 import Profil from '../views/Profil.vue'
 import Search from '../views/Search.vue'
 import Publish from '../views/Publish.vue'
+import EditProfil from '@/views/EditProfil.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,7 +22,7 @@ const router = createRouter({
     },
     {
       path: '/search',
-      name: 'seatch',
+      name: 'search',
       component: Search
     },
     {
@@ -39,6 +40,12 @@ const router = createRouter({
       name: 'profilId',
       component: Profil,
       props: true,
+    },
+    {
+      path: '/editProfil/:id',
+      name: 'editProfil',
+      component: EditProfil,
+      props: true
     },
     {
       path: '/:pathMatch(.*)*',

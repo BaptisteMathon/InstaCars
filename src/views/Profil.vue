@@ -5,6 +5,7 @@
     import Header from '@/components/Header.vue'
     import { usePublicationActions } from '@/components/publicationActions'
     import { likeActions } from '@/components/likeActions'
+    import { commentActions } from '@/components/commentActions'
 
 
     const router = useRouter()
@@ -13,6 +14,7 @@
     const { isAuthentificated, logout } = useAuth()
     const {bool_popup, bool_like, publicationDetail, seePublication} = usePublicationActions()
     const {Likes} = likeActions(bool_like, publicationDetail);
+    const {bool_comments, allCommentsFromPost, newComment, Comments, addComments} = commentActions(publicationDetail)
 
     const getUserIdFromLocalStorage = () => localStorage.getItem('userId') || '';
 
@@ -217,6 +219,7 @@
                     test1Element.style.filter = "blur(0)";
                     test2Element.style.filter = "blur(0)";
                 }
+                bool_comments.value = false
             }
         })
         document.addEventListener('mousedown', (event) => {
@@ -231,6 +234,7 @@
                             test1Element.style.filter = "blur(0)";
                             test2Element.style.filter = "blur(0)";
                         }
+                        bool_comments.value = false
                     }
                 }
             }
@@ -261,7 +265,7 @@
 
         <div class="main-div2">
             <div v-if="!bool">
-                <span class="edit-profil">Modifier le profil</span>
+                <a :href="`/editProfil/${userData.id}`" class="edit-profil" >Modifier le profil</a>
                 <span class="edit-profil" @click="logout">Se déconnecter</span>
             </div>
             <div class="div-follow">
@@ -288,28 +292,45 @@
 
     <section class="DetailPost" id="DetailPost" v-if="bool_popup">
         <div class="DetailPostDiv">
-            <div class="userPart">
-                <img :src="userData.profile_picture || '/public/utilisateur.png'" alt="Profile picture of user" class="profil-user-detail">
-                <h3>{{ userData.username }}</h3>
-            </div>
-            <div class="main-content">
-                <img :src="publicationDetail.image" alt="" class="image-detail">
-            </div>
-            <div class="event-publications">
-                <div class="click-detail">
-                    <span class="span-detail" style="margin-right: 10px;">{{ publicationDetail.comments.length }}</span>
-                    <img src="/public/commenter.png" alt="Comment" class="icon" width="30">
+            <div>
+                <div class="userPart">
+                    <img :src="userData.profile_picture || '/public/utilisateur.png'" alt="Profile picture of user" class="profil-user-detail">
+                    <h3>{{ userData.username }}</h3>
                 </div>
-                <div class="click-detail" @click="Likes(publicationDetail.id, getUserIdFromLocalStorage())">
-                    <img src="/public/like2.png" alt="Like" class="icon" width="30" v-if="bool_like">
-                    <img src="/public/like.png" alt="Like" class="icon" width="30" v-if="!bool_like">
-                    <span class="span-detail" style="margin-left: 10px;">{{ publicationDetail.likes.length }}</span>
+                <div class="main-content">
+                    <img :src="publicationDetail.image" alt="" class="image-detail">
                 </div>
-            </div>  
-            <div class="description">
-                <p>{{ publicationDetail.description }}</p>
-                <div class="test">
-                    <p class="tags" v-for="tags in publicationDetail.tags">{{ tags }} </p>
+                <div class="event-publications">
+                    <div class="click-detail" @click="Likes(publicationDetail.id, getUserIdFromLocalStorage())">
+                        <span class="span-detail" style="margin-right: 10px;">{{ publicationDetail.likes.length }}</span>
+                        <img src="/public/like2.png" alt="Like" class="icon" width="30" v-if="bool_like">
+                        <img src="/public/like.png" alt="Like" class="icon" width="30" v-if="!bool_like">
+                    </div>
+                    <div class="click-detail" @click="Comments(publicationDetail.id, false)">
+                        <span class="span-detail" style="margin-right: 10px;">{{ publicationDetail.comments.length }}</span>
+                        <img src="/public/commenter.png" alt="Comment" class="icon" width="30">
+                    </div>
+                </div>  
+                <div class="description">
+                    <p>{{ publicationDetail.description }}</p>
+                    <div class="test">
+                        <p class="tags" v-for="tags in publicationDetail.tags">{{ tags }} </p>
+                    </div>
+                </div>
+            </div>
+            <div class="comments-part" v-if="bool_comments">
+                <h3>Commentaires</h3>
+                <div v-for="comments in allCommentsFromPost" :key="comments.created_at" class="border-comment">
+                    <div class="info-user-comment">
+                        <img :src="comments.profile_picture" alt="User profil picture">
+                        <p>{{ comments.user }}</p>
+                    </div>
+                    <p class="user-comment-content">{{ comments.text }}</p>
+                </div>
+
+                <div class="AddComment">
+                    <input type="text" placeholder="Ajouter un commentaire ..." v-model="newComment">
+                    <img src="/public/send.png" alt="Send comment" @click="addComments(publicationDetail.id, userData.id, newComment)">
                 </div>
             </div>
         </div>
