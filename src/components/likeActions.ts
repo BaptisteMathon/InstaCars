@@ -2,8 +2,6 @@ import {type Ref} from 'vue'
 
 export function likeActions(bool_like: Ref<boolean>, publicationDetail: Ref){
     async function Likes(idPost: string, idUser: string ){
-        console.log("idPost: ", idPost)
-        console.log("idUser: ", idUser)
         if(bool_like.value){
             // console.log("déjà liké")
             const removeLike = await fetch (`http://localhost:3001/post/unlike/${idPost}`, {

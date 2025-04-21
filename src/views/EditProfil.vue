@@ -41,8 +41,6 @@
 
         if(editProfil.value.profile_picture){
             formData.append('profile_picture', editProfil.value.profile_picture)
-        } else {
-            formData.append('profile_picture', originalPP.value)
         }
         console.log("formData: ", formData)
 
@@ -60,7 +58,7 @@
             console.error('Error updating user informations')
             return
         } else {
-            router.push('/profil')
+            // router.push('/profil')
         }
 
         console.log(data)

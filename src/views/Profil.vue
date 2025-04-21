@@ -6,6 +6,7 @@
     import { usePublicationActions } from '@/components/publicationActions'
     import { likeActions } from '@/components/likeActions'
     import { commentActions } from '@/components/commentActions'
+    import {followActions} from '@/components/followActions'
 
 
     const router = useRouter()
@@ -15,6 +16,7 @@
     const {bool_popup, bool_like, publicationDetail, seePublication} = usePublicationActions()
     const {Likes} = likeActions(bool_like, publicationDetail);
     const {bool_comments, allCommentsFromPost, newComment, Comments, addComments} = commentActions(publicationDetail)
+    const {allFollowersOfUser, allFollowingsOfUser, showAbo, showAbo2, Followers, Followings} = followActions()
 
     const getUserIdFromLocalStorage = () => localStorage.getItem('userId') || '';
 
@@ -150,7 +152,7 @@
             userData.value.id = data._id
             userData.value.username = data.username
             userData.value.bio = data.bio
-            userData.value.profile_picture = `http://localhost:3001/uploads/profil_pictures/${data.profile_picture}`
+            userData.value.profile_picture = data.profile_picture
             userData.value.followers = data.followers.length
             userData.value.following = data.following.length
 
@@ -198,7 +200,7 @@
             publication.value = data.map((pub: any) => ({
                 id: pub._id,
                 description: pub.description,
-                image: `http://localhost:3001/uploads/publications/${pub.image}`,
+                image: pub.image,
                 createdAt: pub.created_at,
                 userId: pub.owner
             })).sort((a: Publication, b: Publication) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -220,6 +222,11 @@
                     test2Element.style.filter = "blur(0)";
                 }
                 bool_comments.value = false
+
+                showAbo.value = false
+                showAbo2.value = false
+
+
             }
         })
         document.addEventListener('mousedown', (event) => {
@@ -235,6 +242,16 @@
                             test2Element.style.filter = "blur(0)";
                         }
                         bool_comments.value = false
+                    }
+
+                    if(event.target.className === "div-abo"){
+                        showAbo.value = false
+                        showAbo2.value = false
+                    }
+
+                    if(event.target.className === "div-abo2"){
+                        showAbo2.value = false
+                        showAbo.value = false
                     }
                 }
             }
@@ -269,17 +286,42 @@
                 <span class="edit-profil" @click="logout">Se déconnecter</span>
             </div>
             <div class="div-follow">
-                <div>
+                <div class="follow-content" @click="Followers(userData.id)"     >
                     <p>{{ userData.followers }}</p>
                     <p>Abonnés</p>
                 </div>
-                <div>
+                <div class="follow-content" @click="Followings(userData.id)">
                     <p>{{ userData.following }}</p>
                     <p>Abonnements</p>
                 </div>
             </div>
         </div>
     </main>
+
+    <div class="div-abo2" id="div-abo2" v-if="showAbo2">
+        <section class="section-abonnements2">
+            <h3>Abonnées: </h3>
+            <div v-for="users in allFollowersOfUser" class="abonnements2">
+                <a :href="`/profil/${users.id}`">
+                    <img :src="users.profile_picture || '/public/utilisateur.png'" alt="Profile picture of user">
+                    <p>{{ users.nameUser }}</p>
+                </a>
+            </div>
+        </section>
+    </div>
+
+
+    <div class="div-abo" id="div-abo" v-if="showAbo">
+        <section class="section-abonnements">
+            <h3>Abonnements: </h3>
+            <div v-for="userss in allFollowingsOfUser" class="abonnements">
+                <a :href="`/profil/${userss.id}`">
+                    <img :src="userss.profile_picture || '/public/utilisateur.png'" alt="Profile picture of user">
+                    <p>{{ userss.nameUser }}</p>
+                </a>
+            </div>
+        </section>
+    </div>
 
     <section class="section-publication" id="test2">
         <div v-if="publication.length !== 0" class="div-publication">
