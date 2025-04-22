@@ -52,7 +52,7 @@
 <template>
     <Header/>
     
-    <main class="main-search">
+    <main class="main-search" style="margin-bottom: 50px;">
         <div class="search-container">
             <div class="search-bar">
                 <input type="text" v-model="searchQuery" placeholder="Rechercher..." />
@@ -66,7 +66,7 @@
             <ul class="list-users">
                 <li v-for="user in filteredUsers" :key="user.id">
                     <a :href="`/profil/${user._id}`">
-                        <img :src="`http://localhost:3001/uploads/profil_pictures/${user.profile_picture}`" alt="User profile" width="60" height="60">
+                        <img :src="`${user.profile_picture}`" alt="User profile" width="60" height="60">
                         <h3>{{ user.username }}</h3>
                     </a>
                 </li>

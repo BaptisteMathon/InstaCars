@@ -10,6 +10,7 @@
     const {isAuthentificated} = useAuth()
 
     const originalPP = ref('')
+    const imagePreview = ref('')
 
     const editProfil = ref(
         {
@@ -25,7 +26,7 @@
         const target = e.target as HTMLInputElement
         if(target.files){
             editProfil.value.profile_picture = target.files[0]
-
+            imagePreview.value = URL.createObjectURL(target.files[0])
         }
     }
 
@@ -101,7 +102,7 @@
 <template>
     <Header/>
 
-    <main class="main-edit-profile">       
+    <main class="main-edit-profile" style="margin-bottom: 50px;">       
         <section>
             <h1>Modifier le profil :</h1>
     
@@ -123,6 +124,10 @@
     
                 <label for="profile_picture">Changer la photo de profil</label>
                 <input type="file" name="profile_picture" accept="image/*" @change="handleFileChange">
+
+                <div class="imagePre" v-if="imagePreview !== ''">                    
+                    <img :src="imagePreview" alt="" width="150vw" height="150vh">
+                </div>
     
                 <label for="bio">Biographie</label>
                 <textarea name="bio" v-model="editProfil.bio"></textarea>

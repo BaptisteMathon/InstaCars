@@ -109,3 +109,18 @@ button:hover {
     width: 80%;
     /* margin-left: 5%; */
 }
+
+.imagePre {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.imagePre img {
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.imagePre img:hover {
+    transform: scale(1.03);
+}

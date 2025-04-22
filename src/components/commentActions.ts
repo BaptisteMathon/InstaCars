@@ -47,7 +47,7 @@ export function commentActions (publicationDetail: Ref){
                         return {
                           ...comment,
                           user: userData.username || 'Utilisateur inconnu',
-                          profile_picture: userData.profile_picture ? `http://localhost:3001/uploads/profil_pictures/${userData.profile_picture}` : null
+                          profile_picture: userData.profile_picture ? userData.profile_picture : null
                         }
                       } catch (err) {
                         console.error(`Erreur lors du fetch de l'utilisateur ${comment.user}`, err)

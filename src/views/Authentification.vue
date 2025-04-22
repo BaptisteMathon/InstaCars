@@ -7,6 +7,7 @@ const router = useRouter()
 const { isAuthentificated } = useAuth()
 
 const message = ref('')
+const imagePreview = ref('')
 // const isAuthenticated = ref(false)
 const login = ref(
     {
@@ -30,6 +31,7 @@ const handleFileChange = (e: Event) => {
     const target = e.target as HTMLInputElement
     if (target.files) {
         register.value.profile_picture = target.files[0]
+        imagePreview.value = URL.createObjectURL(target.files[0])
     }
 }
 
@@ -199,6 +201,10 @@ onMounted(() => {
 
                 <label for="profil_pictures">Photo de profil: </label>
                 <input type="file" name="profil_picture" accept="image/*" @change="handleFileChange">
+
+                <div class="imagePreview" v-if="imagePreview !== ''">
+                    <img :src="imagePreview" alt="" width="150vw" height="150vh">
+                </div>
 
                 <button @click.prevent="Register">S'inscrire</button>
             </form>

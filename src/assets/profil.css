@@ -82,6 +82,7 @@
 .div-publication {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(10%, 30%));
+    /* grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); */
     gap: 10% 0;
     justify-items: center;
     justify-content: center;
@@ -189,7 +190,7 @@
     background-color: white;
     padding: 20px 5px;
     border-radius: 10px;
-    overflow: hidden;
+    /* overflow: hidden; */
 } 
 
 .comments-part {
@@ -438,6 +439,22 @@
     z-index: 99;
 }
 
+
+@media (max-width: 1200px){
+    .DetailPostDiv {
+        flex-direction: column;
+        overflow: scroll;
+    }
+
+    .comments-part {
+        overflow:visible;
+        width: 90%;
+        border-left: none;
+        border-top: 1px solid #777;
+        margin-top: 10px;
+    }
+}
+
 @media (max-width: 768px) {
     .main-div1 {
         flex-direction: column;
@@ -454,20 +471,25 @@
         justify-content: space-around;
     }
 
-    .div-publication > div {
+    .div-publication {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    /* .div-publication > div {
         flex: 0 0 calc(50% - 10px);
         max-width: calc(50% - 10px);
-    }
+    } */
+
 }
 
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
     .div-publication > div {
         flex: 0 0 100%;
-        max-width: 100%;
+        width: 90%;
     }
     
     .div-publication {
         gap: 15px;
     }
-}
+} */

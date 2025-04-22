@@ -110,15 +110,30 @@
     color: red
 }
 
-@media (max-width: 900px) {
-section {
-    flex-direction: column;
-    align-items: center;
+.imagePreview {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-section div {
-    width: 90%;
-    max-width: 90%;
-    margin-bottom: 2rem;
+.imagePreview img {
+    border-radius: 50%;
+    transition: all 0.3s ease;
 }
+
+.imagePreview img:hover {
+    transform: scale(1.03);
+}
+
+@media (max-width: 900px) {
+    section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    section div {
+        width: 90%;
+        max-width: 90%;
+        margin-bottom: 2rem;
+    }
 }

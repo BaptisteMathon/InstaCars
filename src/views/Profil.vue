@@ -298,7 +298,7 @@
         </div>
     </main>
 
-    <div class="div-abo2" id="div-abo2" v-if="showAbo2">
+    <div class="div-abo2" id="div-abo2" v-if="showAbo2 && allFollowersOfUser.length > 0">
         <section class="section-abonnements2">
             <h3>Abonnées: </h3>
             <div v-for="users in allFollowersOfUser" class="abonnements2">
@@ -311,7 +311,7 @@
     </div>
 
 
-    <div class="div-abo" id="div-abo" v-if="showAbo">
+    <div class="div-abo" id="div-abo" v-if="showAbo && allFollowingsOfUser.length > 0">
         <section class="section-abonnements">
             <h3>Abonnements: </h3>
             <div v-for="userss in allFollowingsOfUser" class="abonnements">
@@ -323,7 +323,7 @@
         </section>
     </div>
 
-    <section class="section-publication" id="test2">
+    <section class="section-publication" id="test2" style="margin-bottom: 100px;">
         <div v-if="publication.length !== 0" class="div-publication">
             <div v-for="publications in publication" @click="seePublication(publications.id)" class="click">
                 <img :src="publications.image" :alt="publications.description">

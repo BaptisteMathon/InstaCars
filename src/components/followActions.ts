@@ -48,7 +48,7 @@ export function followActions(){
                             // ...user,
                             id: userData._id,
                             nameUser: userData.username,
-                            profile_picture: userData.profile_picture ? `http://localhost:3001/uploads/profil_pictures/${userData.profile_picture}` : null
+                            profile_picture: userData.profile_picture ? userData.profile_picture : null
                           }
                     } catch(error){
                         console.error('Erreur lors du fetch utilisateur')
@@ -106,7 +106,7 @@ export function followActions(){
                             // ...user,
                             id: userData._id,
                             nameUser: userData.username,
-                            profile_picture: userData.profile_picture ? `http://localhost:3001/uploads/profil_pictures/${userData.profile_picture}` : null
+                            profile_picture: userData.profile_picture ? userData.profile_picture : null
                           }
                     } catch(error){
                         console.error('Erreur lors du fetch utilisateur')

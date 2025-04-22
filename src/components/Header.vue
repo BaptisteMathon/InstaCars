@@ -20,7 +20,7 @@
                 console.error("Erreur lors du fetch")
                 return
             }
-            profil_picture.value = `http://localhost:3001/uploads/profil_pictures/${data.profile_picture}`
+            profil_picture.value = data.profile_picture
         } catch(error) {
             console.error('Error during onMounted:', error)
         }
@@ -35,54 +35,21 @@
         </a>
         <div class="div2">
             <ul>
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/search">Rechercher</a></li>
-                <li><a href="/publish">Publier</a></li>
-                <li><a href="/profil"><img :src="profil_picture || '/public/utilisateur.png'" alt="profil" width="75" height="75"></a></li>
+                <li><a href="/" class="more">Accueil</a></li>
+                <li><a href="/" class="less"><img src="/public/home.png" alt="" width="30px" height="30px"></a></li>
+
+                <li><a href="/search" class="more">Rechercher</a></li>
+                <li><a href="/search" class="less"><img src="/public/search.png" alt="" width="30px" height="30px"></a></li>
+
+                <li><a href="/publish" class="more">Publier</a></li>
+                <li><a href="/publish" class="less"><img src="/public/add.png" alt="" width="30px" height="30px"></a></li>
+
+                <li><a href="/profil"><img :src="profil_picture || '/public/utilisateur.png'" alt="profil" width="75" height="75" class="profil_pic"></a></li>
             </ul>
         </div>
     </header>
 </template>
 
 <style scoped>
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-    }
-
-    .div1 {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: #000;
-    }
-
-    .div1 img {
-        margin-right: 10px;
-    }
-
-    .div2 ul {
-        display: flex;
-        list-style: none;
-        padding: 0;
-        align-items: center;
-    }
-
-    .div2 ul a {
-        margin: 0 10px;
-        text-decoration: none;
-        font-size: 1.2em;
-        color: #000;
-        transition: color 0.5s;
-    }
-
-    .div2 ul a:hover {
-        color: #007BFF;
-    }
-
-    .div2 ul li img {
-        border-radius: 50%;
-    }
+    @import '../assets/header.css'
 </style>

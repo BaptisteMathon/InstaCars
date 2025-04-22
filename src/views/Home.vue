@@ -220,17 +220,17 @@
 <template>
     <Header />
 
-    <main>
+    <main style="padding-bottom: 50px;">
         <section v-for="posts in allPost" class="publications-home">
             <div>
                 <div class="user-info">
                     <a :href="`/profil/${posts.idUserPost}`">
-                        <img :src="`http://localhost:3001/uploads/profil_pictures/${posts.profile_picture}`" alt="" width="50" height="50">
+                        <img :src="`${posts.profile_picture}`" alt="" width="50" height="50">
                         <p>{{ posts.username }}</p>
                     </a>
                 </div>
                 <div>
-                    <img :src="`http://localhost:3001/uploads/publications/${posts.image}`" alt="Post use" class="home-post">
+                    <img :src="`${posts.image}`" alt="Post use" class="home-post">
                     <p>{{ posts.description }}</p>
                     <span v-for="tags in posts.tags" class="tags">{{ tags }}</span>
                     <div class="interact">

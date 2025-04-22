@@ -61,7 +61,7 @@ export function usePublicationActions() {
             publicationDetail.value = {
                 id: data._id,
                 owner: data.owner,
-                image: `http://localhost:3001/uploads/publications/${data.image}`,
+                image: data.image,
                 description: data.description,
                 tags: data.tags,
                 likes: data.likes,

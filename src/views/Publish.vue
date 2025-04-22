@@ -17,6 +17,7 @@
     )
 
     const message = ref('')
+    const imagePreview = ref('')
 
     async function createPublication(){
         if(!newPublication.value.description || !newPublication.value.image){
@@ -65,6 +66,7 @@
         const target = e.target as HTMLInputElement
         if(target.files){
             newPublication.value.image = target.files[0]
+            imagePreview.value = URL.createObjectURL(target.files[0])
             console.log(target.files[0])
         }
     }
@@ -81,7 +83,7 @@
 
     <Header/>
 
-    <main class="main-publish">
+    <main class="main-publish" style="margin-bottom: 50px;">
         <h1>Créer une nouvelle publication </h1>
         <p>{{ message }}</p>
         <form>
@@ -92,6 +94,9 @@
             <div>   
                 <label for="image"><h3>Photo</h3></label>
                 <input type="file" name="image" id="image" accept="image/*" @change="handleFileChange">
+                <div class="preview-image">                    
+                    <img :src="imagePreview" alt="" width="50%">
+                </div>
             </div>
 
             <button @click.prevent="createPublication">Partager la publication</button>

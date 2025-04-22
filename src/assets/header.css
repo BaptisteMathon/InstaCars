@@ -1,0 +1,80 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.div1 {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+}
+
+.div1 img {
+    margin-right: 10px;
+}
+
+.div2 ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    align-items: center;
+}
+
+.div2 ul a {
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #000;
+    transition: color 0.5s;
+}
+
+.div2 ul a:hover {
+    color: #007BFF;
+}
+
+.div2 ul li .profil_pic {
+    border-radius: 50%;
+}
+
+.less {
+    display: none;
+}
+
+@media (max-width: 600px) {
+
+    .div1 img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .div2{
+        position: fixed;
+        background-color: #eeeeee;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        z-index: 99;
+    }
+
+    .div2 ul {
+        justify-content: space-between;
+        margin: 3px;
+        margin-left: -15px;
+    }
+
+    .div2 ul .profil_pic {
+        width: 50px;
+        height: 50px;
+    }
+
+    .more {
+        display: none;
+    }
+
+    .less {
+        display: block;
+    }
+}
