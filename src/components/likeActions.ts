@@ -4,7 +4,10 @@ export function likeActions(bool_like: Ref<boolean>, publicationDetail: Ref){
     async function Likes(idPost: string, idUser: string ){
         if(bool_like.value){
             // console.log("déjà liké")
-            const removeLike = await fetch (`http://localhost:3001/post/unlike/${idPost}`, {
+            
+            const removeLike = await fetch (`https://cda-api-eta.vercel.app/post/unlike/${idPost}`, {
+
+            // const removeLike = await fetch (`http://localhost:3001/post/unlike/${idPost}`, {
                 method: 'PUT',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -24,7 +27,10 @@ export function likeActions(bool_like: Ref<boolean>, publicationDetail: Ref){
             }
         } else {
             // console.log("pas encore liké")
-            const addLike = await fetch (`http://localhost:3001/post/like/${idPost}`, {
+            
+            const addLike = await fetch (`https://cda-api-eta.vercel.app/post/like/${idPost}`, {
+
+            // const addLike = await fetch (`http://localhost:3001/post/like/${idPost}`, {
                 method: 'PUT',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',

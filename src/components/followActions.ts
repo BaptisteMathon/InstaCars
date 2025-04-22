@@ -17,7 +17,10 @@ export function followActions(){
     async function Followers(id: string){
         console.log("Followers")
         try{
-            const allFollowers = await fetch(`http://localhost:3001/allFollowers/${id}`, {
+            
+            const allFollowers = await fetch(`https://cda-api-eta.vercel.app/allFollowers/${id}`, {
+
+            // const allFollowers = await fetch(`http://localhost:3001/allFollowers/${id}`, {
                 method: 'GET',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -37,7 +40,10 @@ export function followActions(){
             const enrichedUsers = await Promise.all(
                 data.map(async (user: Users) => {
                     try{
-                        const userResponse = await fetch(`http://localhost:3001/user/${user}`, {
+                        
+                        const userResponse = await fetch(`https://cda-api-eta.vercel.app/user/${user}`, {
+
+                        // const userResponse = await fetch(`http://localhost:3001/user/${user}`, {
                             method: 'GET',
                             headers: {
                               'x-access-token': localStorage.getItem('token') || ''
@@ -76,7 +82,10 @@ export function followActions(){
     async function Followings(id: string){
         console.log("Followings")
         try{
-            const allFollowings = await fetch(`http://localhost:3001/allFollowings/${id}`, {
+            
+            const allFollowings = await fetch(`https://cda-api-eta.vercel.app/allFollowings/${id}`, {
+
+            // const allFollowings = await fetch(`http://localhost:3001/allFollowings/${id}`, {
                 method: 'GET',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -96,7 +105,10 @@ export function followActions(){
             const enrichedUsers = await Promise.all(
                 data.map(async (user: Users) => {
                     try{
-                        const userResponse = await fetch(`http://localhost:3001/user/${user}`, {
+                        
+                        const userResponse = await fetch(`https://cda-api-eta.vercel.app/user/${user}`, {
+
+                        // const userResponse = await fetch(`http://localhost:3001/user/${user}`, {
                             headers: {
                               'x-access-token': localStorage.getItem('token') || ''
                             }

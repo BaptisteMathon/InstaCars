@@ -45,7 +45,8 @@
         }
         console.log("formData: ", formData)
 
-        const editUserInfo = await fetch(`http://localhost:3001/user/${userId}`, {
+        const editUserInfo = await fetch(`https://cda-api-eta.vercel.app/user/${userId}`, {
+        // const editUserInfo = await fetch(`http://localhost:3001/user/${userId}`, {
             method: 'PUT',
             headers: {
                 'x-access-token': localStorage.getItem('token') || ''
@@ -71,7 +72,8 @@
         }
 
         try{
-            const userInfo = await fetch(`http://localhost:3001/user/${userId}`, {
+            // const userInfo = await fetch(`http://localhost:3001/user/${userId}`, {
+            const userInfo = await fetch(`https://cda-api-eta.vercel.app/user/${userId}`, {
                 method: 'GET',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',

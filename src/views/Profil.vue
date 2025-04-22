@@ -64,7 +64,9 @@
     async function Follow(id: string){
         if(bool_following.value){
             const myId = {id: localStorage.getItem('userId')}
-            const response = await fetch(`http://localhost:3001/unfollow/${route.params.id}`, {
+            
+            const response = await fetch(`https://cda-api-eta.vercel.app/unfollow/${route.params.id}`, {
+            // const response = await fetch(`http://localhost:3001/unfollow/${route.params.id}`, {
                 method: 'PUT',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -87,7 +89,9 @@
         } else{
             console.log("follow!!!")
             const myId = {id: localStorage.getItem('userId')}
-            const response = await fetch(`http://localhost:3001/follow/${route.params.id}`, {
+            
+            const response = await fetch(`https://cda-api-eta.vercel.app/follow/${route.params.id}`, {
+            // const response = await fetch(`http://localhost:3001/follow/${route.params.id}`, {
                 method: 'PUT',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -133,7 +137,9 @@
 
         try{
     
-            const response = await fetch(`http://localhost:3001/user/${userId}`, {
+            
+            const response = await fetch(`https://cda-api-eta.vercel.app/user/${userId}`, {
+            // const response = await fetch(`http://localhost:3001/user/${userId}`, {
                 method: 'GET',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -157,7 +163,10 @@
             userData.value.following = data.following.length
 
             if(bool.value){
-                const myInfo = await fetch(`http://localhost:3001/user/${localStorage.getItem('userId')}`, {
+                
+                const myInfo = await fetch(`https://cda-api-eta.vercel.app/user/${localStorage.getItem('userId')}`, {
+
+                // const myInfo = await fetch(`http://localhost:3001/user/${localStorage.getItem('userId')}`, {
                     method: 'GET',
                     headers: {
                         'x-access-token': localStorage.getItem('token') || '',
@@ -183,7 +192,9 @@
         }
 
         try{
-            const response = await fetch(`http://localhost:3001/posts/user/${userId}`, {
+            
+            const response = await fetch(`https://cda-api-eta.vercel.app/posts/user/${userId}`, {
+            // const response = await fetch(`http://localhost:3001/posts/user/${userId}`, {
                 method: 'GET',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',

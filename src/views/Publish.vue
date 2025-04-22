@@ -41,7 +41,9 @@
                 formData.append('image', newPublication.value.image)
             }
 
-            const addPost = await fetch("http://localhost:3001/post/", {
+            
+            const addPost = await fetch("https://cda-api-eta.vercel.app/post/", {
+            // const addPost = await fetch("http://localhost:3001/post/", {
                 method: 'POST',
                 headers: {
                     // 'Content-Type': 'application/json',

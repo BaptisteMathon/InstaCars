@@ -7,7 +7,10 @@
         try{
             const userId = localStorage.getItem('userId')
 
-            const response = await fetch(`http://localhost:3001/user/${userId}`, {
+            
+            const response = await fetch(`https://cda-api-eta.vercel.app/user/${userId}`, {
+
+            // const response = await fetch(`http://localhost:3001/user/${userId}`, {
                 method: 'GET',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',

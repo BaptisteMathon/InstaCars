@@ -25,7 +25,9 @@
         }
 
         try{
-            const allUsers = await fetch(`http://localhost:3001/users`, {
+            
+            const allUsers = await fetch(`https://cda-api-eta.vercel.app/users`, {
+            // const allUsers = await fetch(`http://localhost:3001/users`, {
                 method: 'GET',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || ''

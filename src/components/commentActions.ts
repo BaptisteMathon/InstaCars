@@ -22,7 +22,10 @@ export function commentActions (publicationDetail: Ref){
             bool_comments.value = true
 
             try{
-                const allComments = await fetch(`http://localhost:3001/comments/${idPublication}`, {
+                
+                const allComments = await fetch(`https://cda-api-eta.vercel.app/comments/${idPublication}`, {
+
+                // const allComments = await fetch(`http://localhost:3001/comments/${idPublication}`, {
                     method: 'GET',
                     headers: {
                         'x-access-token': localStorage.getItem('token') || '',
@@ -38,7 +41,10 @@ export function commentActions (publicationDetail: Ref){
                 const enrichedComments = await Promise.all(
                     data.map(async (comment: Comment) => {
                       try {
-                        const userResponse = await fetch(`http://localhost:3001/user/${comment.user}`, {
+                        
+                        const userResponse = await fetch(`https://cda-api-eta.vercel.app/user/${comment.user}`, {
+
+                        // const userResponse = await fetch(`http://localhost:3001/user/${comment.user}`, {
                           headers: {
                             'x-access-token': localStorage.getItem('token') || ''
                           }
@@ -76,7 +82,9 @@ export function commentActions (publicationDetail: Ref){
                 comment
             }
 
-            const addComments = await fetch(`http://localhost:3001/post/comment/${idPost}`, {
+            
+            const addComments = await fetch(`https://cda-api-eta.vercel.app/post/comment/${idPost}`, {
+            // const addComments = await fetch(`http://localhost:3001/post/comment/${idPost}`, {
                 method: 'PUT',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',

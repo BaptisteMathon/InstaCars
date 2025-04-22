@@ -33,7 +33,8 @@
     const allPost = ref<infoPosts[]>([])
 
     async function Like(idPost: string, idUser: string){
-        const addLike = await fetch (`http://localhost:3001/post/like/${idPost}`, {
+        // const addLike = await fetch (`http://localhost:3001/post/like/${idPost}`, {
+        const addLike = await fetch (`https://cda-api-eta.vercel.app/post/like/${idPost}`, {
                 method: 'PUT',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -52,7 +53,8 @@
     }
 
     async function Unlike(idPost: string, idUser: string){
-        const addLike = await fetch (`http://localhost:3001/post/unlike/${idPost}`, {
+        const addLike = await fetch (`https://cda-api-eta.vercel.app/post/unlike/${idPost}`, {
+        // const addLike = await fetch (`http://localhost:3001/post/unlike/${idPost}`, {
                 method: 'PUT',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -83,7 +85,9 @@
 
     async function loadHome(){
             try {
-                const response = await fetch(`http://localhost:3001/allFollowings/${userID.value}`, {
+                // const response = await fetch(`http://localhost:3001/allFollowings/${userID.value}`, {
+                const response = await fetch(`https://cda-api-eta.vercel.app/allFollowings/${userID.value}`, {
+
                     method: 'GET',
                     headers: {
                         'x-access-token': localStorage.getItem('token') || '',
@@ -102,7 +106,9 @@
                 const enrichedPost = await Promise.all(
                     data.map(async (posts: infoPosts) => {
                         try{
-                            const postResponse = await fetch(`http://localhost:3001/posts/user/${posts}`, {
+                            
+                            const postResponse = await fetch(`https://cda-api-eta.vercel.app/posts/user/${posts}`, {
+                            // const postResponse = await fetch(`http://localhost:3001/posts/user/${posts}`, {
                                 method: 'GET',
                                 headers: {
                                     'x-access-token': localStorage.getItem('token') || ''
@@ -135,7 +141,9 @@
 
                             const test = await Promise.all(
                                 postData.map(async (post: any) => {
-                                const userResponse = await fetch(`http://localhost:3001/user/${post.owner}`, {
+                                    
+                                    const userResponse = await fetch(`https://cda-api-eta.vercel.app/user/${post.owner}`, {
+                                // const userResponse = await fetch(`http://localhost:3001/user/${post.owner}`, {
                                     method: 'GET',
                                     headers: {
                                     'x-access-token': localStorage.getItem('token') || ''

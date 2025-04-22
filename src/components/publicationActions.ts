@@ -43,7 +43,10 @@ export function usePublicationActions() {
             test2Element.style.filter = "blur(4px)";
         }
 
-        const postDetail = await fetch(`http://localhost:3001/post/${idOfPublication}`, {
+        
+        const postDetail = await fetch(`https://cda-api-eta.vercel.app/post/${idOfPublication}`, {
+
+        // const postDetail = await fetch(`http://localhost:3001/post/${idOfPublication}`, {
             method: 'GET',
             headers: {
                 'x-access-token': localStorage.getItem('token') || '',
