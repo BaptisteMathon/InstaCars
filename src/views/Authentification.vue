@@ -156,7 +156,7 @@ async function Login(){
 }
 
 function loginWithgoogle(){
-    window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=898042072054-81uj8b9r7fnls6bifrik3daoa1e3gf0b.apps.googleusercontent.com&redirect_uri=http://localhost:3001/auth/google/callback&response_type=code&scope=email%20profile`
+    window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=898042072054-81uj8b9r7fnls6bifrik3daoa1e3gf0b.apps.googleusercontent.com&redirect_uri=https://cda-api-eta.vercel.app/auth/google/callback&response_type=code&scope=email%20profile`
 }
 
 onMounted(() => {
