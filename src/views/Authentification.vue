@@ -154,6 +154,11 @@ async function Login(){
         message.value = error.message || "Erreur inconnu"
     }
 }
+
+function loginWithgoogle(){
+    window.location.href = `https://accounts.google.com/o/oauth2/auth?client_id=898042072054-81uj8b9r7fnls6bifrik3daoa1e3gf0b.apps.googleusercontent.com&redirect_uri=http://localhost:3001/auth/google/callback&response_type=code&scope=email%20profile`
+}
+
 onMounted(() => {
     if(isAuthentificated()){
         router.push('/')
@@ -182,6 +187,7 @@ onMounted(() => {
 
                 <button @click.prevent="Login">Se connecter</button>
             </form>
+            <button @click="loginWithgoogle" class="oauthGoogle"><img src="/public/google.png" alt="" width="25" height="25">Se connecter avec Google</button>
         </div>
 
         <div class="main-div">
@@ -200,19 +206,19 @@ onMounted(() => {
                 </div>
 
                 <label for="new-username">Nom d'utilisateur: <span class="oblig">*</span></label>
-                <input type="text" v-model="register.username" name="new-username" required>
+                <input type="text" v-model="register.username" name="new-username" required class="second-input">
 
                 <label for="new-email">Email: <span class="oblig">*</span></label>
-                <input type="email" v-model="register.email" name="new-email" required>
+                <input type="email" v-model="register.email" name="new-email" required class="second-input">
 
                 <label for="new-password">Mot de passe: <span class="oblig">*</span></label>
-                <input type="password" v-model="register.password" name="new-password" required>
+                <input type="password" v-model="register.password" name="new-password" required class="second-input">
 
                 <label for="bio">Ajouter une biographie: </label>
-                <textarea name="bio" v-model="register.bio" cols="30" rows="5"></textarea>
+                <textarea name="bio" v-model="register.bio" cols="30" rows="5" class="second-input"></textarea>
 
                 <label for="profil_pictures">Photo de profil: </label>
-                <input type="file" name="profil_picture" accept="image/*" @change="handleFileChange">
+                <input type="file" name="profil_picture" accept="image/*" @change="handleFileChange" class="second-input">
 
                 <div class="imagePreview" v-if="imagePreview !== ''">
                     <img :src="imagePreview" alt="" width="150vw" height="150vh">

@@ -90,6 +90,31 @@
     transition: background-color 0.3s;
 }
 
+.oauthGoogle{
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #f16152;
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.oauthGoogle:hover {
+    background-color: #da402f;
+
+}
+
+.oauthGoogle img {
+    margin-right: 15px;
+}
+
 .span-error {    
     width: 100%;
     margin-top: 0.5rem;
@@ -125,15 +150,93 @@
     transform: scale(1.03);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
     section {
         flex-direction: column;
         align-items: center;
     }
 
     section div {
-        width: 90%;
-        max-width: 90%;
+        /* width: 90%; */
+        /* max-width: 90%; */
         margin-bottom: 2rem;
     }
+
+    .h1-auth {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .authentification img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+    }
+
+    .section-auth {
+        flex-direction: column;
+        align-items: center;
+        margin: 1rem;
+        max-width: 100%;
+    }
+
+    .section-auth .main-div {
+        /* width: 90%; */
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .second-div {
+        flex-direction: column;
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    .second-input {
+        width: 100%;
+    }
+
+    .second-div div {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .form-auth label {
+        font-size: 0.9rem;
+    }
+
+    .form-auth input, textarea {
+        font-size: 1rem;
+    }
+
+    .form-auth button {
+        width: 100%;
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .oauthGoogle {
+        font-size: 0.9rem;
+        padding: 0.7rem;
+    }
+
+    .oauthGoogle img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .span-error p {
+        font-size: 0.9rem;
+        padding: 0.4rem 1.5rem;
+    }
+
+    .imagePreview img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .second-input{
+        width: 95%;
+    }
 }
+

@@ -73,6 +73,18 @@
     }
 
     onMounted(async() => {
+        const urlParams = new URLSearchParams(window.location.search)
+        const token = urlParams.get('token')
+
+        if(token){
+            const payload = JSON.parse(atob(token.split('.')[1]))
+            console.log(payload)
+            const userId = payload.id
+
+            localStorage.setItem('token', token)
+            localStorage.setItem('userId', userId)
+        }
+
         if(!isAuthentificated()){
             router.push('/auth')
         } 
