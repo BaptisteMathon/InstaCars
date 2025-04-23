@@ -439,6 +439,16 @@
     z-index: 99;
 }
 
+.div-relative {
+    position: relative;
+}
+
+.deletePost {
+    position: absolute;
+    cursor: pointer;
+    right: 10px;
+}
+
 
 @media (max-width: 1200px){
     .DetailPostDiv {

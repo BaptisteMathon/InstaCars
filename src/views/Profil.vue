@@ -57,6 +57,7 @@
 
     const bool = ref(false)
     const bool_following = ref(false)
+    const userOK = ref(false)
 
     const statut = ref("")
     const statut_class = ref('')
@@ -118,6 +119,29 @@
         return 
     }
 
+    async function deletePublication(PostId: string){
+        // console.log(PostId)
+        try{
+            const response = await fetch(`https://cda-api-eta.vercel.app/post/${PostId}`, {
+            // const response = await fetch(`http://localhost:3001/post/${}`, {
+                method: 'DELETE',
+                headers: {
+                    'x-access-token': localStorage.getItem('token') || '',
+                }
+            })
+
+            if(!response.ok){
+                console.error('Error on fetch delete post')
+                return 
+            } else {
+                // FAIRE UN SYSTEM POUR RETROUBER SUR LA PAGE LOGIN QUAND L'IMAGE EST SUPPRIMER AFIN DE NE PLUS LA VOIRE
+            }
+        } catch(err){
+            console.error('Error on deleting post')
+            return
+        }
+    }
+
     onMounted(async () => {
         if (!isAuthentificated()) {
             router.push('/auth')
@@ -131,6 +155,7 @@
             userId = route.params.id as string
         } else{
             userId = localStorage.getItem('userId') || ''
+            userOK.value = true
         }
 
         console.log("userId:", userId)
@@ -345,7 +370,10 @@
 
     <section class="DetailPost" id="DetailPost" v-if="bool_popup">
         <div class="DetailPostDiv">
-            <div>
+            <div class="div-relative">
+                <div v-if="userOK">
+                    <img src="/public/trash.png" alt="" class="deletePost" width="25px" @click="deletePublication(publicationDetail.id)">
+                </div>
                 <div class="userPart">
                     <img :src="userData.profile_picture || '/public/utilisateur.png'" alt="Profile picture of user" class="profil-user-detail">
                     <h3>{{ userData.username }}</h3>
