@@ -83,6 +83,8 @@
 
             localStorage.setItem('token', token)
             localStorage.setItem('userId', userId)
+
+            window.location.href = '/'
         }
 
         if(!isAuthentificated()){
