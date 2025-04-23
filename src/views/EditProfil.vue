@@ -7,7 +7,7 @@
 
     const router = useRouter()
     const route = useRoute()
-    const {isAuthentificated} = useAuth()
+    const {isAuthentificated, logout} = useAuth()
 
     const originalPP = ref('')
     const imagePreview = ref('')
@@ -65,10 +65,51 @@
 
         console.log(data)
     }
+    
+    function DeleteAccountConfirmation(){
+        const confirmationElement = document.getElementById("confirmationDeleteAccount");
+        if (confirmationElement) {
+            confirmationElement.style.display = 'block';
+        }
+    }
+
+    function dontDeleteAccount(){
+        const confirmationElement = document.getElementById("confirmationDeleteAccount");
+        if (confirmationElement) {
+            confirmationElement.style.display = 'none';
+        }
+    }
+
+    async function deleteAccount(){
+        try{
+            const response = await fetch(`https://cda-api-eta.vercel.app/user/${userId}`, {
+            // const response = await fetch(`http://localhost:3001/user/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'x-access-token': localStorage.getItem('token') || '',
+                }
+            })
+
+            if(!response.ok){
+                console.error('Error on fetch delete user')
+                return 
+            } else {
+                logout()
+                router.push('/auth')
+            }
+        } catch(err){
+            console.error('Error on deleting user')
+            return
+        }
+    }
 
     onMounted( async () => {
         if (!isAuthentificated()) {
             router.push('/auth')
+        }
+
+        if(userId !== localStorage.getItem('userId')){
+            router.push('/profil')
         }
 
         try{
@@ -135,9 +176,22 @@
                 <textarea name="bio" v-model="editProfil.bio"></textarea>
     
                 <button @click.prevent="EditUserInformations">Modifier les informations</button>
+
+                <span @click="DeleteAccountConfirmation" class="deleteAccount">Supprimer le compte</span>
             </form>
         </section>
+
+        <section id="confirmationDeleteAccount">
+            <div class="confirmationDeleteAccount">
+                <p>Etes vous sur de vouloir supprimer votre compte ?</p>
+                <div>
+                    <span @click="deleteAccount" class="delete-oui">OUI</span>
+                    <span @click="dontDeleteAccount" class="delete-non">NON</span>
+                </div>
+            </div>
+        </section>
     </main>
+
 </template>
 
 <style scoped>

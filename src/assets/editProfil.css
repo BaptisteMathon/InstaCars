@@ -91,6 +91,26 @@ button {
     margin-top: 1rem;
 }
 
+.deleteAccount{
+    padding: 0.75rem 1.5rem;
+    background-color: #f44242;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: center;
+    margin-top: 1rem;   
+}
+
+.deleteAccount:hover {
+    background-color: #d63333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(229, 70, 70, 0.3);
+}
+
 button:hover {
     background-color: #3367d6;
     transform: translateY(-2px);
@@ -122,5 +142,60 @@ button:hover {
 }
 
 .imagePre img:hover {
+    transform: scale(1.03);
+}
+
+#confirmationDeleteAccount{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+}
+
+.confirmationDeleteAccount{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 2%;
+    border-radius: 15px;
+}
+
+.confirmationDeleteAccount div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10%;
+}
+
+.confirmationDeleteAccount div span {
+    cursor: pointer;
+}
+
+.delete-oui {
+    background-color: red;
+    padding: 3px 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.delete-oui:hover {
+    background-color: rgb(255, 50, 50);
+    transform: scale(1.03);
+}
+
+.delete-non {
+    background-color: #4285f4;
+    padding: 3px 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.delete-non:hover {
+    background-color: #3367d6;
     transform: scale(1.03);
 }

@@ -32,6 +32,9 @@ const handleFileChange = (e: Event) => {
     if (target.files) {
         register.value.profile_picture = target.files[0]
         imagePreview.value = URL.createObjectURL(target.files[0])
+    } else {
+        register.value.profile_picture = null
+        
     }
 }
 
@@ -63,14 +66,21 @@ async function Register(){
     formData.append('email', email)  
     formData.append('password', register.value.password)
     formData.append('bio', register.value.bio)
+
+    console.log("register.value.profile_picture:", register.value.profile_picture);
+
     if (register.value.profile_picture) {
         formData.append('profile_picture', register.value.profile_picture)
-    } 
+    }
+
+    for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+    }
 
     try{
         
-        // const response = await fetch('http://localhost:3001/api/auth/signup', {
-        const response = await fetch('https://cda-api-eta.vercel.app/api/auth/signup', {
+        const response = await fetch('http://localhost:3001/api/auth/signup', {
+        // const response = await fetch('https://cda-api-eta.vercel.app/api/auth/signup', {
             method: 'POST',
             // headers: {
             //     'Content-Type': 'application/json'
@@ -82,7 +92,9 @@ async function Register(){
         const data = await response.json()
         
         if(!response.ok){            
-            message.value = data?.message || "Erreur lors de la connexion"
+            // message.value = data?.message || "Erreur lors de l'inscription"
+            console.error("Erreur HTTP:", response.status, data)
+            message.value = typeof data === 'string' ? data : data?.message || "Erreur lors de l'inscription"
             window.scrollTo({ top: 0, behavior: 'smooth' })
             return
         }
@@ -110,8 +122,8 @@ async function Login(){
         password: login.value.password
     }
     try{
-        const response = await fetch('https://cda-api-eta.vercel.app/api/auth/signin', {
-        // const response = await fetch('http://localhost:3001/api/auth/signin', {
+        // const response = await fetch('https://cda-api-eta.vercel.app/api/auth/signin', {
+        const response = await fetch('http://localhost:3001/api/auth/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
