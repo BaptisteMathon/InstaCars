@@ -134,7 +134,11 @@
                 console.error('Error on fetch delete post')
                 return 
             } else {
-                // FAIRE UN SYSTEM POUR RETROUBER SUR LA PAGE LOGIN QUAND L'IMAGE EST SUPPRIMER AFIN DE NE PLUS LA VOIRE
+                if(bool){
+                    window.location.href = `/profil/${localStorage.getItem('userId')}`
+                } else {
+                    window.location.href = '/profil'
+                }
             }
         } catch(err){
             console.error('Error on deleting post')
@@ -359,10 +363,17 @@
         </section>
     </div>
 
-    <section class="section-publication" id="test2" style="margin-bottom: 100px;">
+    <section class="section-publication" id="test2">
         <div v-if="publication.length !== 0" class="div-publication">
             <div v-for="publications in publication" @click="seePublication(publications.id)" class="click">
-                <img :src="publications.image" :alt="publications.description">
+                <!-- <img :src="publications.image" :alt="publications.description">
+                <p>{{ publications.description }}</p> -->
+
+                <video class="image-detail" v-if="publications.image.includes('/video/')">
+                    <source :src="publications.image" type="video/mp4">
+                    Le navugateur ne supporte pas la vidéo
+                </video>
+                <img :src="publications.image" :alt="publications.description" v-else>
                 <p>{{ publications.description }}</p>
             </div>
         </div>
@@ -378,7 +389,13 @@
                     <img :src="userData.profile_picture || '/public/utilisateur.png'" alt="Profile picture of user" class="profil-user-detail">
                     <h3>{{ userData.username }}</h3>
                 </div>
-                <div class="main-content">
+                <div class="main-content" v-if="publicationDetail.image.includes('/video/')">
+                    <video controls class="image-detail">
+                        <source :src="publicationDetail.image" type="video/mp4">
+                        Le navigateur ne supporte pas la vidéo
+                    </video>
+                </div>
+                <div class="main-content" v-else>
                     <img :src="publicationDetail.image" alt="" class="image-detail">
                 </div>
                 <div class="event-publications">

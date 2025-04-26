@@ -176,13 +176,13 @@
     .section-auth {
         flex-direction: column;
         align-items: center;
-        margin: 1rem;
+        /* margin: 1rem; */
         max-width: 100%;
     }
 
     .section-auth .main-div {
-        /* width: 90%; */
-        max-width: 100%;
+        width: 90%;
+        /* max-width: 100%; */
         padding: 1rem;
     }
 

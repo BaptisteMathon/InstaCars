@@ -385,58 +385,68 @@
     background-color: #d7d7d7;
 }
 
+.div-abo, .div-abo2 {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.section-abonnements, .section-abonnements2 {
+    width: 100%;
+    max-width: 500px;
+    background: #f0f0f0;
+    padding: 30px 20px;
+    border-radius: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.section-abonnements h3, .section-abonnements2 h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
 .abonnements a, .abonnements2 a {
     display: flex;
-    color: #000;
-    text-decoration: none;
     align-items: center;
-    background-color: #e9e9e9;
+    background-color: #ffffff;
     margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 15px;
-    transition: all 0.3s ease;
+    padding: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, background-color 0.3s;
 }
 
 .abonnements a:hover, .abonnements2 a:hover {
-    background-color: #fff;
-    transform: scale(1.02);
+    background-color: #e0e0e0;
+    transform: scale(1.03);
 }
 
 .abonnements a img, .abonnements2 a img {
     border-radius: 50%;
-    margin-right: 25px;
-    width: 4em;
-    height: 4em;
+    margin-right: 20px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border: 2px solid #ddd;
 }
 
-.section-abonnements, .section-abonnements2 {
-    width: 35%;
-    /* margin: 0 auto; */
-    background-color: #d4d4d4;
-    padding: 25px;
-    border-radius: 15px;
-    max-height: 70vh;
-    overflow: scroll;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.section-abonnements h3, .section-abonnements2 h3 {
-    font-size: 2em;
-}
-
-.div-abo , .div-abo2{
-    background-color: rgba(0, 0, 0, 0.7);
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0 auto;
-    z-index: 99;
+.abonnements a p, .abonnements2 a p {
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 .div-relative {
@@ -462,6 +472,11 @@
         border-left: none;
         border-top: 1px solid #777;
         margin-top: 10px;
+    }
+
+    .section-abonnements, .section-abonnements2 {
+        width: 70%;
+        margin-left: -8%;
     }
 }
 

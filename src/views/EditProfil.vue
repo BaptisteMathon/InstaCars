@@ -11,6 +11,8 @@
 
     const originalPP = ref('')
     const imagePreview = ref('')
+    const msgError = ref('')
+    const boolmsgError = ref(false)
 
     const editProfil = ref(
         {
@@ -24,6 +26,7 @@
 
     const handleFileChange = (e: Event) => {
         const target = e.target as HTMLInputElement
+        console.log(target)
         if(target.files){
             editProfil.value.profile_picture = target.files[0]
             imagePreview.value = URL.createObjectURL(target.files[0])
@@ -40,7 +43,7 @@
         formData.append('username', editProfil.value.username)
         formData.append('bio', editProfil.value.bio)
 
-        if(editProfil.value.profile_picture){
+        if(editProfil.value.profile_picture instanceof File){
             formData.append('profile_picture', editProfil.value.profile_picture)
         }
         console.log("formData: ", formData)
@@ -58,9 +61,14 @@
 
         if(!editUserInfo.ok){
             console.error('Error updating user informations')
+            // const errorData = await editUserInfo.json();
+            msgError.value = data.message || 'Une erreur est survenue lors de la mise à jour des informations.';
+            boolmsgError.value = true;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
             return
         } else {
-            // router.push('/profil')
+            router.push('/profil')
         }
 
         console.log(data)
@@ -134,6 +142,7 @@
             editProfil.value.username = data.username
             editProfil.value.bio = data.bio
             originalPP.value = data.profile_picture
+            editProfil.value.profile_picture = data.profile_picture
         } catch(err){
             console.error('Error during fetching user informaiton: ', err)
         }
@@ -148,6 +157,8 @@
     <main class="main-edit-profile" style="margin-bottom: 50px;">       
         <section>
             <h1>Modifier le profil :</h1>
+
+            <div v-if="boolmsgError" class="msg-error"><p>{{ msgError }}</p></div>
     
             <form class="form-edit-profile">
                 <div class="prenom-nom">
@@ -195,5 +206,5 @@
 </template>
 
 <style scoped>
-    @import '../assets//editProfil.css'
+    @import '../assets/editProfil.css'
 </style>

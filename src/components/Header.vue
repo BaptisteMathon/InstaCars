@@ -39,12 +39,18 @@
         <div class="div2">
             <ul>
                 <li><a href="/" class="more">Accueil</a></li>
+                <li><a href="/search" class="more">Rechercher</a></li>
+                <li><a href="/publish" class="more">Publier</a></li>
+                <li><a href="/profil"><img :src="profil_picture || '/public/utilisateur.png'" alt="profil" width="75" height="75" class="profil_pic"></a></li>
+            </ul>
+        </div>
+
+        <div class="div3">
+            <ul>
                 <li><a href="/" class="less"><img src="/public/home.png" alt="" width="30px" height="30px"></a></li>
 
-                <li><a href="/search" class="more">Rechercher</a></li>
                 <li><a href="/search" class="less"><img src="/public/search.png" alt="" width="30px" height="30px"></a></li>
 
-                <li><a href="/publish" class="more">Publier</a></li>
                 <li><a href="/publish" class="less"><img src="/public/add.png" alt="" width="30px" height="30px"></a></li>
 
                 <li><a href="/profil"><img :src="profil_picture || '/public/utilisateur.png'" alt="profil" width="75" height="75" class="profil_pic"></a></li>

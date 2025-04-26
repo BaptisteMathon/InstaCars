@@ -18,10 +18,12 @@
 
     const message = ref('')
     const imagePreview = ref('')
+    const displayMessage = ref(false)
 
     async function createPublication(){
         if(!newPublication.value.description || !newPublication.value.image){
             message.value = "Veuillez ajouter une description ainsi qu'une image"
+            displayMessage.value = true
         } else {
 
             const formData = new FormData()            
@@ -58,6 +60,7 @@
             if(!addPost.ok) {
                 console.error("Errur lors de la création de la publication")
                 message.value = `Erreur lors de la création de la publication: ${data?.message}`
+                displayMessage.value = true
             }
 
             router.push('/profil')
@@ -87,7 +90,9 @@
 
     <main class="main-publish" style="margin-bottom: 50px;">
         <h1>Créer une nouvelle publication </h1>
-        <p>{{ message }}</p>
+        <div class="msg-error" v-if="displayMessage">
+            <p>{{ message }}</p>
+        </div>
         <form>
             <div>
                 <label for="description"><h3>Description</h3></label>
@@ -95,7 +100,7 @@
             </div>
             <div>   
                 <label for="image"><h3>Photo</h3></label>
-                <input type="file" name="image" id="image" accept="image/*" @change="handleFileChange">
+                <input type="file" name="image" id="image" accept="image/*,video/*" @change="handleFileChange">
                 <div class="preview-image">                    
                     <img :src="imagePreview" alt="" width="50%">
                 </div>
