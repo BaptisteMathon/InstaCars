@@ -1,3 +1,7 @@
+*{
+    font-family: Arial, sans-serif;
+}
+
 .main-publish {
     max-width: 800px;
     margin: 0 auto;
@@ -133,10 +137,11 @@
     color: white;
     display: flex;
     justify-content: center;
+    text-align: justify;
     margin-bottom: 15px;
     border-radius: 15px;
 }
 
 .msg-error p {
-    padding: 0;
+    padding: 0 10px;
 }

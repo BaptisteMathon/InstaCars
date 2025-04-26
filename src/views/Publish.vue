@@ -24,6 +24,7 @@
         if(!newPublication.value.description || !newPublication.value.image){
             message.value = "Veuillez ajouter une description ainsi qu'une image"
             displayMessage.value = true
+            window.scrollTo({ top: 0, behavior: 'smooth' })
         } else {
 
             const formData = new FormData()            
@@ -41,7 +42,15 @@
             formData.append('owner', localStorage.getItem("userId") || '')
             if(newPublication.value.image){
                 formData.append('image', newPublication.value.image)
+                // console.log("newPublication.value.image.type: ", newPublication.value.image.type)
+                if(newPublication.value.image.size > 4.5 * 1024 * 1024){
+                    message.value = "Le poid de l'image ou de la vidéo doit être inférieur à 5Mo 😢"
+                    displayMessage.value = true
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+
+                }
             }
+
 
             
             const addPost = await fetch("https://cda-api-eta.vercel.app/post/", {
@@ -61,6 +70,8 @@
                 console.error("Errur lors de la création de la publication")
                 message.value = `Erreur lors de la création de la publication: ${data?.message}`
                 displayMessage.value = true
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+
             }
 
             router.push('/profil')

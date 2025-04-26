@@ -13,6 +13,8 @@
     const imagePreview = ref('')
     const msgError = ref('')
     const boolmsgError = ref(false)
+    const oldPassword = ref('')
+    const newPassword = ref('')
 
     const editProfil = ref(
         {
@@ -111,6 +113,41 @@
         }
     }
 
+    async function EditPassword(){
+
+        if(oldPassword.value === "" || newPassword.value === ""){
+            msgError.value = 'Veuillez renseigner les champs ancien et nouveau mot de passe'
+            boolmsgError.value = true
+            window.scrollTo({top: 0, behavior: 'smooth'})
+            return
+        }
+        const JSONtemp = {
+            oldPassword: oldPassword.value,
+            newPassword: newPassword.value,
+        }
+
+        const response = await fetch(`https://cda-api-eta.vercel.app/user/${localStorage.getItem('userId')}/password`, {
+            method: 'PUT',
+            headers: {
+                'x-access-token': localStorage.getItem('token') || '',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(JSONtemp)
+        })
+
+        const data = await response.json()
+
+        if(!response.ok){
+            console.error('Error while editing password')
+            msgError.value = data.message || 'Une erreur est survenue lors de la modification de votre mot de passe.';
+            boolmsgError.value = true;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return
+        }
+
+        router.push('/profil')
+    }
+
     onMounted( async () => {
         if (!isAuthentificated()) {
             router.push('/auth')
@@ -189,6 +226,20 @@
                 <button @click.prevent="EditUserInformations">Modifier les informations</button>
 
                 <span @click="DeleteAccountConfirmation" class="deleteAccount">Supprimer le compte</span>
+            </form>
+        </section>
+
+        <section class="section-edit-password">
+            <h2>Modifier le mot de passe</h2>
+            
+            <form>
+                <label for="oldPassword">Ancien mot de passe: </label>
+                <input type="password" name="oldPassword" v-model="oldPassword">
+
+                <label for="newPassword">Nouveau mot de passe: </label>
+                <input type="password" name="newPassword" v-model="newPassword">
+
+                <button @click.prevent="EditPassword">Modifier le mot de passe</button>
             </form>
         </section>
 

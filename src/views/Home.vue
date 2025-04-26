@@ -357,7 +357,11 @@
                     </a>
                 </div>
                 <div>
-                    <img :src="`${posts.image}`" alt="Post use" class="home-post">
+                    <video controls class="home-post" v-if="posts.image.includes('/video/')">
+                        <source :src="posts.image" type="video/mp4">
+                        Le navigateur ne supporte pas la vidéo
+                    </video>
+                    <img :src="`${posts.image}`" alt="Publication" class="home-post" v-else>
                     <p>{{ posts.description }}</p>
                     <span v-for="tags in posts.tags" class="tags">{{ tags }}</span>
                     <div class="interact">
