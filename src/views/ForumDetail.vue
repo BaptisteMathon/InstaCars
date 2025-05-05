@@ -40,7 +40,9 @@
 
         await loadMessage();
 
-        const userConnectedInfo = await fetch(`http://localhost:3001/user/${localStorage.getItem('userId')}`, {
+        
+        // const userConnectedInfo = await fetch(`http://localhost:3001/user/${localStorage.getItem('userId')}`, {
+        const userConnectedInfo = await fetch(`https://cda-api-eta.vercel.app/user/${localStorage.getItem('userId')}`, {
             method: 'GET',
             headers: {
                 'x-access-token': localStorage.getItem('token') || '',
@@ -58,7 +60,9 @@
 
     async function loadMessage() {
         try {
-            const response = await fetch(`http://localhost:3001/forum/${forumId}`, {
+            
+            // const response = await fetch(`http://localhost:3001/forum/${forumId}`, {
+            const response = await fetch(`https://cda-api-eta.vercel.app/forum/${forumId}`, {
                 method: 'GET',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -73,7 +77,9 @@
             } else {
                 await Promise.all(
                     data.forumContent.map(async (message: messageStructure) => {
-                        const userResponse = await fetch(`http://localhost:3001/user/${message.user}`, {
+                        
+                        // const userResponse = await fetch(`http://localhost:3001/user/${message.user}`, {
+                        const userResponse = await fetch(`https://cda-api-eta.vercel.app/user/${message.user}`, {
                             method: 'GET',
                             headers: {
                                 'x-access-token': localStorage.getItem('token') || '',
@@ -104,7 +110,9 @@
         console.log("User id: ", localStorage.getItem('userId'));
 
         try {
-            const response = await fetch(`http://localhost:3001/newMessage/${forumId}`, {
+            
+            // const response = await fetch(`http://localhost:3001/newMessage/${forumId}`, {
+            const response = await fetch(`https://cda-api-eta.vercel.app/newMessage/${forumId}`, {
                 method: 'PUT',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -133,7 +141,9 @@
         // console.log("Message id: ", messageId);
 
         try {
-            const response = await fetch(`http://localhost:3001/deleteMessage/${forumId}`, {
+            
+            // const response = await fetch(`http://localhost:3001/deleteMessage/${forumId}`, {
+            const response = await fetch(`https://cda-api-eta.vercel.app/deleteMessage/${forumId}`, {
                 method: 'PUT',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',

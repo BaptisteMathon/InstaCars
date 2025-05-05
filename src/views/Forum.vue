@@ -62,8 +62,8 @@
 
     async function loadForum() {
         try {
-            const response = await fetch(`http://localhost:3001/allForums`, {
-            // const response = await fetch(`https://cda-api-eta.vercel.app/allForums`, {
+            // const response = await fetch(`http://localhost:3001/allForums`, {
+            const response = await fetch(`https://cda-api-eta.vercel.app/allForums`, {
                 method: 'GET',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
@@ -80,7 +80,8 @@
             const forumAllDetail = await Promise.all(
                 data.map(async (forum: forumStructure) => {
                     try{
-                        const response = await fetch(`http://localhost:3001/user/${forum.forumOwner}`, {
+                        // const response = await fetch(`http://localhost:3001/user/${forum.forumOwner}`, {
+                        const response = await fetch(`https://cda-api-eta.vercel.app/user/${forum.forumOwner}`, {
                             method: 'GET',
                             headers: {
                                 'x-access-token': localStorage.getItem('token') || '',
@@ -116,8 +117,8 @@
         console.log("Forum owner: ", localStorage.getItem('userId'));
 
         try{
-            const response = await fetch(`http://localhost:3001/forum`, {
-            // const response = await fetch(`https://cda-api-eta.vercel.app/forum`, {
+            // const response = await fetch(`http://localhost:3001/forum`, {
+            const response = await fetch(`https://cda-api-eta.vercel.app/forum`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -149,7 +150,8 @@
         console.log("Forum id: ", id);
 
         try{
-            const response = await fetch(`http://localhost:3001/forum/${id}`, {
+            // const response = await fetch(`http://localhost:3001/forum/${id}`, {
+            const response = await fetch(`https://cda-api-eta.vercel.app/forum/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'x-access-token': localStorage.getItem('token') || '',
