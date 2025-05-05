@@ -297,6 +297,8 @@
             }
             // if()
         })
+
+        document.title = "InstaCars | " + userData.value.username
     })
 
 
@@ -364,7 +366,7 @@
     </div>
 
     <section class="section-publication" id="test2">
-        <div v-if="publication.length !== 0" class="div-publication">
+        <div v-if="publication.length !== 0" class="div-publication" >
             <div v-for="publications in publication" @click="seePublication(publications.id)" class="click">
                 <!-- <img :src="publications.image" :alt="publications.description">
                 <p>{{ publications.description }}</p> -->
@@ -377,6 +379,11 @@
                 <p>{{ publications.description }}</p>
             </div>
         </div>
+    </section>
+
+    <section style="color: transparent;">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam numquam officia at velit asperiores, aliquam possimus ut sed delectus voluptas, amet fugit error qui laboriosam libero? Unde nobis ipsam labore!</p>
+        <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam numquam officia at velit asperiores, aliquam possimus ut sed delectus voluptas, amet fugit error qui laboriosam libero? Unde nobis ipsam labore!</p> -->
     </section>
 
     <section class="DetailPost" id="DetailPost" v-if="bool_popup">
@@ -419,10 +426,10 @@
             <div class="comments-part" v-if="bool_comments">
                 <h3>Commentaires</h3>
                 <div v-for="comments in allCommentsFromPost" :key="comments.created_at" class="border-comment">
-                    <div class="info-user-comment">
+                    <a  :href="`/profil/${comments.idUser}`" class="info-user-comment">
                         <img :src="comments.profile_picture" alt="User profil picture">
                         <p>{{ comments.user }}</p>
-                    </div>
+                    </a>
                     <p class="user-comment-content">{{ comments.text }}</p>
                 </div>
 

@@ -200,6 +200,8 @@
                 }
             }
         })
+
+        document.title = 'InstaCars | Home'
     })
 
     async function loadHome(){
@@ -390,7 +392,7 @@
                     <p>{{ comments.text }}</p>
                 </div>
                 <div class="AddComment">
-                    <input type="text" placeholder="Ajouter un commentaire ..." v-model="newComment">
+                    <input type="text" placeholder="Ajouter un commentaire ..." v-model="newComment" @keyup.enter="details && addComments(details, userID, newComment)">
                     <img src="/public/send.png" alt="Send comment" @click="details && addComments(details, userID, newComment)">
                 </div>
             </div>

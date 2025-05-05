@@ -31,7 +31,7 @@
 }
 
 .user-info a:hover {
-    border-bottom: 1px solid #666;
+    opacity: 0.6;
 }
 
 .user-info a img {
@@ -146,9 +146,11 @@
     transition: all 0.3s ease;  
 }
 
+.commentsDetail a:hover {
+    opacity: 0.6;
+}
 .commentsDetail a:hover p {
-    color: rgb(34, 0, 255);
-    text-decoration: underline;
+    color: #858585;
 }
 
 .commentsDetail img {

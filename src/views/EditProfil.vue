@@ -184,6 +184,8 @@
             console.error('Error during fetching user informaiton: ', err)
         }
 
+        document.title = "InstaCars | Modifier le profil"
+
     })
 
 </script>

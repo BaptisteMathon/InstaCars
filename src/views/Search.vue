@@ -47,6 +47,8 @@
         } catch(err){
             console.error('Error durint fetching all users')
         }
+
+        document.title = "InstaCars | Recherche"
     })
 
 </script>

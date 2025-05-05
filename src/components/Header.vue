@@ -41,6 +41,7 @@
                 <li><a href="/" class="more">Accueil</a></li>
                 <li><a href="/search" class="more">Rechercher</a></li>
                 <li><a href="/publish" class="more">Publier</a></li>
+                <li><a href="/forum" class="more">Forum</a></li>
                 <li><a href="/profil"><img :src="profil_picture || '/public/utilisateur.png'" alt="profil" width="75" height="75" class="profil_pic"></a></li>
             </ul>
         </div>
@@ -55,6 +56,10 @@
 
                 <li><a href="/profil"><img :src="profil_picture || '/public/utilisateur.png'" alt="profil" width="75" height="75" class="profil_pic"></a></li>
             </ul>
+        </div>
+
+        <div class="div4">
+            <a href="/forum"><img src="/public/forum.png" alt="forum" width="30px" height="30px"></a>
         </div>
     </header>
 </template>

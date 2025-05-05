@@ -1,6 +1,5 @@
 *{
     font-family: Arial, sans-serif;
-
 }
 
 .main-profil {
@@ -88,7 +87,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(10%, 30%));
     /* grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); */
-    gap: 10% 0;
+    /* gap: 10% 0; */
     justify-items: center;
     justify-content: center;
 }
@@ -246,6 +245,7 @@
 
 .click{
     cursor: pointer;
+    margin-bottom: 50px;
 }
 
 .span-detail {
@@ -352,6 +352,16 @@
 .info-user-comment {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: #000;
+    transition: all 0.3s ease;  
+}
+.info-user-comment:hover {
+    opacity: 0.6;
+}
+
+.info-user-comment:hover p {
+    color: #858585;
 }
 
 .info-user-comment img {

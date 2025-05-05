@@ -6,7 +6,8 @@ export function commentActions (publicationDetail: Ref){
         user: string,
         profile_picture: string,
         text: string,
-        created_at: string
+        created_at: string,
+        idUser: string,
     }
 
     const bool_comments = ref(false)
@@ -45,22 +46,24 @@ export function commentActions (publicationDetail: Ref){
                         const userResponse = await fetch(`https://cda-api-eta.vercel.app/user/${comment.user}`, {
 
                         // const userResponse = await fetch(`http://localhost:3001/user/${comment.user}`, {
-                          headers: {
-                            'x-access-token': localStorage.getItem('token') || ''
-                          }
+                            headers: {
+                                'x-access-token': localStorage.getItem('token') || ''
+                            }
                         })
                         const userData = await userResponse.json()
                         return {
-                          ...comment,
-                          user: userData.username || 'Utilisateur inconnu',
-                          profile_picture: userData.profile_picture ? userData.profile_picture : null
+                            ...comment,
+                            user: userData.username || 'Utilisateur inconnu',
+                            profile_picture: userData.profile_picture ? userData.profile_picture : null,
+                            idUser: comment.user
                         }
                       } catch (err) {
                         console.error(`Erreur lors du fetch de l'utilisateur ${comment.user}`, err)
                         return {
-                          ...comment,
-                          user: 'Utilisateur inconnu',
-                          profile_picture: null
+                            ...comment,
+                            user: 'Utilisateur inconnu',
+                            profile_picture: null,
+                            idUser: ''
                         }
                       }
                     })

@@ -6,6 +6,8 @@ import Profil from '../views/Profil.vue'
 import Search from '../views/Search.vue'
 import Publish from '../views/Publish.vue'
 import EditProfil from '@/views/EditProfil.vue'
+import Forum from '../views/Forum.vue'
+import ForumDetail from '@/views/ForumDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,6 +38,11 @@ const router = createRouter({
       component: Profil,
     },
     {
+      path: '/forum',
+      name: 'forum',
+      component: Forum,
+    },
+    {
       path: '/profil/:id',
       name: 'profilId',
       component: Profil,
@@ -46,6 +53,11 @@ const router = createRouter({
       name: 'editProfil',
       component: EditProfil,
       props: true
+    },
+    {
+      path: '/forum/:id',
+      name: 'forumDetail',
+      component: ForumDetail,
     },
     {
       path: '/:pathMatch(.*)*',

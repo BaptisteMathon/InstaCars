@@ -88,9 +88,11 @@
     }
 
     onMounted(() => {
-        if(!isAuthentificated){
+        if(!isAuthentificated()){
             router.push('/auth')
         }
+
+        document.title = "InstaCars | Publication"
     })
 
 </script>
