@@ -60,6 +60,12 @@ async function Register(){
         return
     }
 
+    if(register.value.username.length > 30){
+        message.value = "Le nom d'utilisateur ne doit pas dépasser 30 caractères"
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        return
+    }
+
     formData.append('prenom', register.value.prenom)
     formData.append('nom', register.value.nom)
     formData.append('username', register.value.username)

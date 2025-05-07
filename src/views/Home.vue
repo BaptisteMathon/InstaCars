@@ -174,11 +174,14 @@
             localStorage.setItem('userId', userId)
 
             window.location.href = '/'
-        }
+        } 
 
         if(!isAuthentificated()){
+            console.log('not authentificated')
             router.push('/auth')
-        } 
+        } else {
+            console.log('authentificated')
+        }
 
         userID.value = localStorage.getItem('userId') || ''
 

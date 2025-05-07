@@ -112,7 +112,7 @@
                 <textarea name="description" v-model="newPublication.description" id="description" placeholder="Ajouter votre description" rows="5"></textarea>
             </div>
             <div>   
-                <label for="image"><h3>Photo</h3></label>
+                <label for="image"><h3>Photo / Vidéo</h3></label>
                 <input type="file" name="image" id="image" accept="image/*,video/*" @change="handleFileChange">
                 <div class="preview-image">                    
                     <img :src="imagePreview" alt="" width="50%">

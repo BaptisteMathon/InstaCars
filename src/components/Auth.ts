@@ -4,6 +4,7 @@ export function useAuth(){
     const router = useRouter()
 
     const isAuthentificated = () => {
+        console.log('isAuthentificated', localStorage.getItem('token') )
         return localStorage.getItem('token') !== null
     }
 
