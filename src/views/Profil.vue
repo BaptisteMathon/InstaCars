@@ -12,7 +12,7 @@
     const router = useRouter()
     const route = useRoute()
 
-    const { isAuthentificated, logout } = useAuth()
+    const { isAuthentificated, logout, isAdmin } = useAuth()
     const {bool_popup, bool_like, publicationDetail, seePublication} = usePublicationActions()
     const {Likes} = likeActions(bool_like, publicationDetail);
     const {bool_comments, allCommentsFromPost, newComment, Comments, addComments} = commentActions(publicationDetail)
@@ -157,8 +157,13 @@
         if(route.params.id && route.params.id !== localStorage.getItem('userId')){
             bool.value = true
             userId = route.params.id as string
-        } else{
+        } else {
             userId = localStorage.getItem('userId') || ''
+            userOK.value = true
+        }
+
+        const admin = await isAdmin(localStorage.getItem('userId') || '')
+        if(admin){
             userOK.value = true
         }
 

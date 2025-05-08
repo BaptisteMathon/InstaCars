@@ -5,7 +5,7 @@
     import Header from '@/components/Header.vue';
 
     const router = useRouter();
-    const { isAuthentificated } = useAuth();
+    const { isAuthentificated, isAdmin } = useAuth();
 
     interface forumStructure {
         _id: string,
@@ -21,6 +21,7 @@
     const forumDescription = ref<string>('');
     const searchForum = ref<string>('');
     const bool_newForum = ref<boolean>(false)
+    const is_admin = ref<boolean>(false)
 
     const filteredForum = computed(() => {
         if(searchForum.value === ""){
@@ -37,6 +38,9 @@
         if (!isAuthentificated()) {
             router.push('/auth');
         }
+
+        const admin = await isAdmin(localStorage.getItem('userId') || '')
+        is_admin.value = admin
 
         await loadForum()
 
@@ -196,7 +200,7 @@
                         <p>Créé par : {{ forum.OwnerUsername }}</p>
                     </div>
                 </a>
-                <span v-if="forum.forumOwner === userID" class="deleteForum" @click="deleteForum(forum._id)"><img src="/public/trash.png" alt="" width="25"></span>
+                <span v-if="(forum.forumOwner === userID) || is_admin" class="deleteForum" @click="deleteForum(forum._id)"><img src="/public/trash.png" alt="" width="25"></span>
             </div>
         </section>
     </main>

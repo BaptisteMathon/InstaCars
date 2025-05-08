@@ -30,9 +30,32 @@ export function useAuth(){
         }
     }
 
+    const isAdmin = async (id:string) => {
+        try{
+            const response = await fetch(`https://cda-api-eta.vercel.app/user/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': localStorage.getItem('token') || ''
+                }
+
+            })
+
+            if(!response.ok) {
+                throw new Error('Erreur lors de la vérification de l\'admin')
+            }
+            const data = await response.json()
+
+            return data.is_verified
+        } catch(error){
+            console.error('Erreur lors de la vérification de l\'admin', error)
+        }
+    }
+
     return {
         isAuthentificated,
-        logout
+        logout,
+        isAdmin
     }
 }
 

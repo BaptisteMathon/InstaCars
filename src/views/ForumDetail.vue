@@ -7,7 +7,7 @@
     const router = useRouter();
     const route = useRoute();
     const forumId = route.params.id;
-    const { isAuthentificated } = useAuth();
+    const { isAuthentificated, isAdmin } = useAuth();
 
     interface messageStructure {
         _id: string,
@@ -30,7 +30,7 @@
     const allMessage = ref<messageStructure[]>([]);
     const newMessage = ref<string>('');
     const nameUserconnected = ref<string>('');
-    const isAdmin = ref<boolean>(false);
+    const is_admin = ref<boolean>(false);
 
     onMounted(async () => {
         if (!isAuthentificated()) {
@@ -51,7 +51,9 @@
         const userConnectedData = await userConnectedInfo.json();
         // console.log("userConnectedData: ", userConnectedData);
         nameUserconnected.value = userConnectedData.username;
-        isAdmin.value = userConnectedData.is_verified;
+
+        const admin = await isAdmin(localStorage.getItem('userId') || '');
+        is_admin.value = admin;
         // console.log(nameUserconnected.value);
 
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
@@ -182,7 +184,7 @@
                         <a :href="`/profil/${message.idUser}`">
                             <img :src="message.profile_picture" alt="" width="50" height="50" class="profile-picture">
                         </a>
-                        <img src="/public/trash.png" alt="" width="24" height="24" v-if="(nameUserconnected === message.user) || isAdmin" @click="deleteMessage(message._id)" class="delete-message">
+                        <img src="/public/trash.png" alt="" width="24" height="24" v-if="(nameUserconnected === message.user) || is_admin" @click="deleteMessage(message._id)" class="delete-message">
                     </div>
                         <!-- <h2>{{ message.user }}</h2> -->
                     <p class="message-content">{{ message.message }}</p>
