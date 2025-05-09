@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-    import {ref, onMounted} from 'vue'
+    import {ref, onMounted, watch} from 'vue'
     import {useRouter, useRoute} from 'vue-router'
     import Header from '@/components/Header.vue'
     import { useAuth } from '@/components/Auth'
@@ -15,6 +15,7 @@
     const boolmsgError = ref(false)
     const oldPassword = ref('')
     const newPassword = ref('')
+    const saveUsernameOnLoad = ref<string>('')
 
     const editProfil = ref(
         {
@@ -38,11 +39,21 @@
     const userId = route.params.id
 
     async function EditUserInformations(){
+
+        if(editProfil.value.bio.length > 100){
+            msgError.value = 'La biographie ne doit pas dépasser 100 caractères'
+            boolmsgError.value = true
+            window.scrollTo({top: 0, behavior: 'smooth'})
+            return
+        }
+
         const formData = new FormData()
 
         formData.append('prenom', editProfil.value.prenom)
         formData.append('nom', editProfil.value.nom)
-        formData.append('username', editProfil.value.username)
+        if(editProfil.value.username !== saveUsernameOnLoad.value){
+            formData.append('username', editProfil.value.username)
+        }
         formData.append('bio', editProfil.value.bio)
 
         if(editProfil.value.profile_picture instanceof File){
@@ -177,12 +188,21 @@
             editProfil.value.prenom = data.prenom
             editProfil.value.nom = data.nom
             editProfil.value.username = data.username
+            saveUsernameOnLoad.value = data.username
             editProfil.value.bio = data.bio
             originalPP.value = data.profile_picture
             editProfil.value.profile_picture = data.profile_picture
         } catch(err){
             console.error('Error during fetching user informaiton: ', err)
         }
+
+        const bioLengthElement = document.getElementById('bio-length');
+
+        watch(() => editProfil.value.bio, (newBio) => {
+            if (bioLengthElement) {
+                bioLengthElement.style.color = newBio.length > 100 ? 'red' : 'black';
+            }
+        });
 
         document.title = "InstaCars | Modifier le profil"
 
@@ -224,6 +244,7 @@
     
                 <label for="bio">Biographie</label>
                 <textarea name="bio" v-model="editProfil.bio"></textarea>
+                <p id="bio-length">{{ editProfil.bio.length }} / 100</p>
     
                 <button @click.prevent="EditUserInformations">Modifier les informations</button>
 

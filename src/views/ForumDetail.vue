@@ -32,6 +32,42 @@
     const nameUserconnected = ref<string>('');
     const is_admin = ref<boolean>(false);
 
+    const handleFileChange = async (e: Event) => {
+        const target = e.target as HTMLInputElement
+        
+        if (!target.files || target.files.length === 0) {
+            return;
+        }
+
+        const imageFile = target.files[0];
+
+        const formData = new FormData()
+        formData.append('image', imageFile)
+        formData.append('user', localStorage.getItem('userId') || '')
+        try{
+            const responses = await fetch(`http://localhost:3001/addingImage/${forumId}`, {
+            // const responses = await fetch(`https://cda-api-eta.vercel.app/addingImage/${forumId}`, {
+                method: 'PUT',
+                headers: {
+                    'x-access-token': localStorage.getItem('token') || '',
+                },
+                body: formData
+            })
+
+            if (!responses.ok) {
+                console.error("Erreur lors du fetch");
+                return;
+            }
+
+            newMessage.value = '';
+            await loadMessage();
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+        } catch(error){
+            console.error('Error on fetch forum image:', error);
+            return
+        }
+    }
+
     onMounted(async () => {
         if (!isAuthentificated()) {
             router.push('/auth');
@@ -187,11 +223,16 @@
                         <img src="/public/trash.png" alt="" width="24" height="24" v-if="(nameUserconnected === message.user) || is_admin" @click="deleteMessage(message._id)" class="delete-message">
                     </div>
                         <!-- <h2>{{ message.user }}</h2> -->
-                    <p class="message-content">{{ message.message }}</p>
+                    <p class="message-content message-content-image" v-if="message.message.includes('https://res.cloudinary.com/dizqqbonz')"><img :src="message.message" alt=""></p>
+                    <p class="message-content" v-else>{{ message.message }}</p>
                 </div>
             </div>
 
             <div class="sendMessage">
+                <label class="label-file">
+                    <span>+</span>
+                    <input type="file" accept="image/*" @change="handleFileChange" />
+                </label>
                 <input type="text" placeholder="Votre message" v-model="newMessage" @keyup.enter="sendMessage" />
                 <img src="/public/send.png" alt="" @click="sendMessage">
             </div>

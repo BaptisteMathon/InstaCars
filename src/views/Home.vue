@@ -3,10 +3,12 @@
     import { useRouter } from 'vue-router'
     import { useAuth } from '@/components/Auth'
     import Header from '@/components/Header.vue'
+    import { randomUser } from '@/components/randomUser'
 
 
     const router = useRouter()
     const { isAuthentificated } = useAuth()
+    const {getRandomUser} = randomUser()
 
     const userID = ref('')
 
@@ -41,6 +43,8 @@
     const allPost = ref<infoPosts[]>([])
     const boolComments = ref(false)
     const newComment = ref('')
+    const randomUsers = ref<any[]>([])
+    const allUserFollowings = ref<any[]>([])
 
     async function Like(idPost: string, idUser: string){
         // const addLike = await fetch (`http://localhost:3001/post/like/${idPost}`, {
@@ -186,6 +190,13 @@
         userID.value = localStorage.getItem('userId') || ''
 
         await loadHome()     
+
+        // console.log("allUserFollowings: ", allUserFollowings)
+        if(allPost.value.length === 0){
+            randomUsers.value = await getRandomUser() || []
+        }
+        // randomUsers.value = await getRandomUser() || []
+        // console.log("randomUser: ", randomUser)
         
         document.addEventListener('keydown', (event) => {
             if(event.key === 'Escape'){
@@ -220,6 +231,7 @@
                 })
     
                 const data = await response.json()
+                allUserFollowings.value = data
                 console.log("data: ", data)
     
                 if(!response.ok){
@@ -347,6 +359,25 @@
             }
 
         }
+
+        async function FollowRandomUser(idUser: string){
+            console.log(idUser)
+            try{
+                const response = await fetch(`https://cda-api-eta.vercel.app/follow/${idUser}`, {
+                    method: 'PUT',
+                    headers: {
+                        'x-access-token': localStorage.getItem('token') || '',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({id: localStorage.getItem('userId')})
+                })
+            } catch(err){
+                console.error('Erreur lors du fetch pour follow un utilisateur')
+                return
+            }
+            await loadHome()
+            randomUsers.value = await getRandomUser() || []
+        }
 </script>
 
 <template>
@@ -397,6 +428,20 @@
                 <div class="AddComment">
                     <input type="text" placeholder="Ajouter un commentaire ..." v-model="newComment" @keyup.enter="details && addComments(details, userID, newComment)">
                     <img src="/public/send.png" alt="Send comment" @click="details && addComments(details, userID, newComment)">
+                </div>
+            </div>
+        </section>
+
+        <section v-if="allPost.length === 0" class="section-no-post">
+            <p class="section-info">Suivez d'autres utilisateurs, afin de voir leurs contenus </p>
+
+            <div class="section-random-user">
+                <div v-for="users in randomUsers" class="random-user">
+                    <a :href="`/profil/${users._id}`" class="random-user-link">
+                        <img :src="users.profile_picture" :alt="'profile picture of :' + users.username " width="90vw" height="90vh">
+                        <p>{{ users.username }}</p>
+                    </a>
+                    <span @click="FollowRandomUser(users._id)">S'abonner</span>
                 </div>
             </div>
         </section>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/components/Auth'
 
@@ -60,10 +60,16 @@ async function Register(){
         return
     }
 
-    if(register.value.username.length > 30){
-        message.value = "Le nom d'utilisateur ne doit pas dépasser 30 caractères"
+    if(register.value.username.length > 20){
+        message.value = "Le nom d'utilisateur ne doit pas dépasser 20 caractères"
         window.scrollTo({ top: 0, behavior: 'smooth' })
         return
+    }
+
+    if(register.value.bio.length > 100){
+        message.value = "La biographie ne doit pas dépasser 250 caractères"
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        return  
     }
 
     formData.append('prenom', register.value.prenom)
@@ -169,6 +175,15 @@ onMounted(() => {
     if(isAuthentificated()){
         router.push('/')
     } 
+
+    const bioLengthElement = document.getElementById('length-bio');
+
+    watch(() => register.value.bio, (newBio) => {
+        if (bioLengthElement) {
+            bioLengthElement.style.color = newBio.length > 100 ? 'red' : 'black';
+        }
+    });
+    
 })
 </script>
 
@@ -222,6 +237,7 @@ onMounted(() => {
 
                 <label for="bio">Ajouter une biographie: </label>
                 <textarea name="bio" v-model="register.bio" cols="30" rows="5" class="second-input"></textarea>
+                <p id="length-bio">{{ register.bio.length }} / 100</p>
 
                 <label for="profil_pictures">Photo de profil: </label>
                 <input type="file" name="profil_picture" accept="image/*" @change="handleFileChange" class="second-input">

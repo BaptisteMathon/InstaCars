@@ -155,6 +155,10 @@
     transform: scale(1.03);
 }
 
+#length-bio {
+    margin: 0;
+}
+
 @media (max-width: 1050px) {
     section {
         flex-direction: column;

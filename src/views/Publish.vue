@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import {ref, onMounted } from 'vue'
+    import {ref, onMounted, watch } from 'vue'
     import {useRouter} from 'vue-router'
     import {useAuth} from '@/components/Auth'
     import Header from '@/components/Header.vue'
@@ -25,7 +25,15 @@
             message.value = "Veuillez ajouter une description ainsi qu'une image"
             displayMessage.value = true
             window.scrollTo({ top: 0, behavior: 'smooth' })
+            return
         } else {
+
+            if(newPublication.value.description.length > 100){
+                message.value = "La description ne doit pas dépasser 100 caractères"
+                displayMessage.value = true
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                return
+            }
 
             const formData = new FormData()            
 
@@ -92,6 +100,13 @@
             router.push('/auth')
         }
 
+        const descriptionLength = document.getElementById('description-length')
+        watch(() => newPublication.value.description, (newDescription) => {
+            if(descriptionLength){
+                descriptionLength.style.color = newDescription.length > 100 ? 'red' : 'black'
+            }
+        })
+
         document.title = "InstaCars | Publication"
     })
 
@@ -107,16 +122,17 @@
             <p>{{ message }}</p>
         </div>
         <form>
-            <div>
-                <label for="description"><h3>Description</h3></label>
-                <textarea name="description" v-model="newPublication.description" id="description" placeholder="Ajouter votre description" rows="5"></textarea>
-            </div>
             <div>   
                 <label for="image"><h3>Photo / Vidéo</h3></label>
                 <input type="file" name="image" id="image" accept="image/*,video/*" @change="handleFileChange">
                 <div class="preview-image">                    
                     <img :src="imagePreview" alt="" width="50%">
                 </div>
+            </div>
+            <div>
+                <label for="description"><h3>Description</h3></label>
+                <textarea name="description" v-model="newPublication.description" id="description" placeholder="Ajouter votre description" rows="5"></textarea>
+                <p id="description-length">{{ newPublication.description.length }} / 100</p>
             </div>
 
             <button @click.prevent="createPublication">Partager la publication</button>
