@@ -203,6 +203,16 @@
             console.error('Error during onMounted:', error);
         }
     }
+
+    async function seeMore(id: string){
+        const trashIcon = document.getElementById(id)
+        const moreIcon = document.getElementById(id + "more")
+
+        if (trashIcon && moreIcon) {
+            trashIcon.style.display = "block";
+            moreIcon.style.display = "none";
+        }
+    }
 </script>
 
 <template>
@@ -220,7 +230,8 @@
                         <a :href="`/profil/${message.idUser}`">
                             <img :src="message.profile_picture" alt="" width="50" height="50" class="profile-picture">
                         </a>
-                        <img src="/public/trash.png" alt="" width="24" height="24" v-if="(nameUserconnected === message.user) || is_admin" @click="deleteMessage(message._id)" class="delete-message">
+                        <img src="/public/more.png" alt="" width="20" height="20" v-if="(nameUserconnected === message.user) || is_admin" class="delete-message" @click="seeMore(message._id)" :id="message._id + 'more'">
+                        <img src="/public/trash.png" alt="" width="24" height="24" v-if="(nameUserconnected === message.user) || is_admin" @click="deleteMessage(message._id)" class="delete-message" :id="message._id" style="display: none">
                     </div>
                         <!-- <h2>{{ message.user }}</h2> -->
                     <p class="message-content message-content-image" v-if="message.message.includes('https://res.cloudinary.com/dizqqbonz')"><img :src="message.message" alt=""></p>

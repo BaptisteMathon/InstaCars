@@ -146,6 +146,15 @@
         }
     }
 
+    async function seeMore(){
+        const seeMoreElement = document.getElementById('seeMore')
+        const deleteElement = document.getElementById('Delete')
+        if(seeMoreElement && deleteElement){
+            seeMoreElement.style.display = "none"
+            deleteElement.style.display = "block"
+        }
+    }
+
     onMounted(async () => {
         if (!isAuthentificated()) {
             router.push('/auth')
@@ -302,7 +311,6 @@
             }
             // if()
         })
-
         document.title = "InstaCars | " + userData.value.username
     })
 
@@ -395,7 +403,8 @@
         <div class="DetailPostDiv">
             <div class="div-relative">
                 <div v-if="userOK">
-                    <img src="/public/trash.png" alt="" class="deletePost" width="25px" @click="deletePublication(publicationDetail.id)">
+                    <img src="/public/more.png" alt="" class="deletePost" id="seeMore" width="25px" @click="seeMore()">
+                    <img src="/public/trash.png" alt="" class="deletePost" id="Delete" width="25px" @click="deletePublication(publicationDetail.id)" style="display: none">
                 </div>
                 <div class="userPart">
                     <img :src="userData.profile_picture || '/public/utilisateur.png'" alt="Profile picture of user" class="profil-user-detail">
@@ -439,7 +448,7 @@
                 </div>
 
                 <div class="AddComment">
-                    <input type="text" placeholder="Ajouter un commentaire ..." v-model="newComment">
+                    <input type="text" placeholder="Ajouter un commentaire ..." v-model="newComment" @keyup.enter="addComments(publicationDetail.id, userData.id, newComment)">
                     <img src="/public/send.png" alt="Send comment" @click="addComments(publicationDetail.id, userData.id, newComment)">
                 </div>
             </div>
