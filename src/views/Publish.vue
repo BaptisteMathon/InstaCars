@@ -38,9 +38,6 @@
             const formData = new FormData()            
 
             const tempTags = newPublication.value.description.split(' ').filter((tag: String) => tag.startsWith('#'))
-            // newPublication.value.description = newPublication.value.description.replace(/#\S+\s*/g, '')
-            // newPublication.value.tags = tempTags
-            // newPublication.value.id = localStorage.getItem("userId") || ''
 
             formData.append('description', newPublication.value.description.replace(/#\S+\s*/g, ''))
             tempTags.forEach(tag => {
@@ -52,9 +49,10 @@
                 formData.append('image', newPublication.value.image)
                 // console.log("newPublication.value.image.type: ", newPublication.value.image.type)
                 if(newPublication.value.image.size > 4.5 * 1024 * 1024){
-                    message.value = "Le poid de l'image ou de la vidéo doit être inférieur à 5Mo 😢"
+                    message.value = "Le poid de l'image ou de la vidéo doit être inférieur à 4.5Mo 😢"
                     displayMessage.value = true
                     window.scrollTo({ top: 0, behavior: 'smooth' })
+                    return
 
                 }
             }

@@ -438,7 +438,7 @@
             <div class="section-random-user">
                 <div v-for="users in randomUsers" class="random-user">
                     <a :href="`/profil/${users._id}`" class="random-user-link">
-                        <img :src="users.profile_picture" :alt="'profile picture of :' + users.username " width="90vw" height="90vh">
+                        <img :src="users.profile_picture" :alt="'profile picture of :' + users.username " width="90vw" height="90vh" referrerpolicy="no-referrer">
                         <p>{{ users.username }}</p>
                     </a>
                     <span @click="FollowRandomUser(users._id)">S'abonner</span>

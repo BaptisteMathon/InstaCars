@@ -91,8 +91,8 @@ async function Register(){
 
     try{
         
-        // const response = await fetch('http://localhost:3001/api/auth/signup', {
-        const response = await fetch('https://cda-api-eta.vercel.app/api/auth/signup', {
+        const response = await fetch('http://localhost:3001/api/auth/signup', {
+        // const response = await fetch('https://cda-api-eta.vercel.app/api/auth/signup', {
             method: 'POST',
             // headers: {
             //     'Content-Type': 'application/json'
